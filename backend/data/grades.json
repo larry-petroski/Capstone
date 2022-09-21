@@ -1,32 +1,32 @@
 [
 	{
-		"GradeName": "Kindergarten",
-		"GradeId": "K",
-		"Description": "Kindergarten"
+		"gradeName": "Kindergarten",
+		"gradeId": "K",
+		"description": "Kindergarten"
 	},
 	{
-		"GradeName": "First",
-		"GradeId": "1",
-		"Description": "1st Grade"
+		"gradeName": "First",
+		"gradeId": "1",
+		"description": "1st Grade"
     },
     {
-		"GradeName": "Second",
-		"GradeId": "2",
-		"Description": "2nd Grade"
+		"gradeName": "Second",
+		"gradeId": "2",
+		"description": "2nd Grade"
 	},
 	{
-		"GradeName": "Third",
-		"GradeId": "3",
-		"Description": "3rd Grade"
+		"gradeName": "Third",
+		"gradeId": "3",
+		"description": "3rd Grade"
 	},
 	{
-		"GradeName": "Fourth",
-		"GradeId": "4",
-		"Description": "4th Grade"
+		"gradeName": "Fourth",
+		"gradeId": "4",
+		"description": "4th Grade"
 	},
 	{
-		"GradeName": "Fifth",
-		"GradeId": "5",
-		"Description": "5th Grade"
+		"gradeName": "Fifth",
+		"gradeId": "5",
+		"description": "5th Grade"
 	}
 ]
