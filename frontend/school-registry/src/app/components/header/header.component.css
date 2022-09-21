@@ -1,0 +1,9 @@
+a {
+    text-decoration: none;
+}
+a:link, a:visited {
+    color: #495057;
+}
+a:hover {
+    cursor: pointer;
+}
