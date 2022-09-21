@@ -1,0 +1,68 @@
+[
+  {
+    "TeacherId": 1,
+    "TeacherName": "Ms. Rachelle",
+    "GradeName": "Kindergarten",
+    "TeacherPhone": "555-000-0000",
+    "TeacherEmail": "nat214@gmail.com",
+    "MaxClassSize": 7,
+    "Students": [
+      {
+        "StudentId": 2,
+        "StudentEmail": "theaterkid0625@gmail.com",
+        "StudentName": "Ezra Aiden",
+        "StudentPhone": "555-000-0002"
+      },
+      {
+        "StudentId": 4,
+        "StudentEmail": "aslan_the_great@gmail.com",
+        "StudentName": "Elisha Aslan",
+        "StudentPhone": "555-000-0003"
+      },
+      {
+        "StudentId": 6,
+        "StudentEmail": "susa2007@gmail.com",
+        "StudentName": "Siddalee Grace",
+        "StudentPhone": "555-000-0020"
+      }
+    ]
+  },
+  {
+    "TeacherId": 2,
+    "TeacherName": "Mrs. Ray",
+    "GradeName": "Second",
+    "TeacherPhone": "555-000-0004",
+    "TeacherEmail": "brit805@aol.com",
+    "MaxClassSize": 7,
+    "Students": [
+      {
+        "StudentId": 1,
+        "StudentEmail": "pursy1222@gmail.com",
+        "StudentName": "Pursalane Faye",
+        "StudentPhone": "555-000-0005"
+      },
+      {
+        "StudentId": 5,
+        "StudentEmail": "thebro@gmail.com",
+        "StudentName": "Zephaniah Hughes",
+        "StudentPhone": "555-000-0006"
+      }
+    ]
+  },
+  {
+    "TeacherId": 3,
+    "TeacherName": "Mr. Westly",
+    "GradeName": "First",
+    "TeacherPhone": "555-000-0012",
+    "TeacherEmail": "zwest90@gmail.com",
+    "MaxClassSize": 7,
+    "Students": [
+      {
+        "StudentId": 3,
+        "StudentEmail": "ian_the_great@gmail.com",
+        "StudentName": "Ian Auston",
+        "StudentPhone": "555-000-0025"
+      }
+    ]
+  }
+]
