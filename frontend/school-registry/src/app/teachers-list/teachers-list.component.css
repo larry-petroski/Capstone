@@ -1,4 +1,13 @@
+div {
+    height: calc(97vh - 125px);
+}
+
 h1 {
     margin: 1.2em 0;
     text-align: center;
+}
+
+div > section:last-of-type {
+    margin-top: auto;
+    margin-bottom: auto;
 }

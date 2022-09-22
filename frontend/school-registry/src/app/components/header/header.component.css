@@ -7,3 +7,8 @@ a:link, a:visited {
 a:hover {
     cursor: pointer;
 }
+
+h3 {
+    width: 100px;
+    word-break: break-word;
+}

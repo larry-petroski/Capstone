@@ -4,17 +4,12 @@
     margin-bottom: 1.5em;
 }
 
-section:first-of-type > p {
-    display: flex;
-    justify-content: center;
+section > p {
+    text-align: center;
+    width: 50vw;
     font-size: 1.25em;
     line-height: 1.5em;
-    margin-bottom: 1.25em;
-}
-
-a {
-    font-size: 1.25em;
-    text-decoration: none;
+    margin: 0 auto 1.25em auto;
 }
 
 .registerBtn {

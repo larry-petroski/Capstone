@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+
 import { MenuItem } from 'primeng/api';
 
-import { Grade } from 'src/app/models/grade.model';
-import { GradesService } from 'src/app/services/grades.service';
+import { Grade } from '../../models/grade.model';
+import { GradesService } from '../../services/grades.service';
 
 @Component({
   selector: 'sr-header',
