@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { Teacher } from 'src/app/models/teacher.model';
-import { TeachersService } from 'src/app/services/teachers.service';
+import { Teacher } from '../../models/teacher.model';
+import { TeachersService } from '../../services/teachers.service';
 
 @Component({
   selector: 'sr-card',

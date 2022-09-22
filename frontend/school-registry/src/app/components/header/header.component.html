@@ -1,16 +1,21 @@
 <p-menubar [model]="items">
-    <ng-template pTemplate="start">
-        <a routerLink="" class="flex">
-            <img src="../../../assets/images/apple.png" alt="Home" class="mr-2" />
-            <div class="flex-column">
-                <p class="mt-2"><strong>Lincoln</strong></p>
-                <p><strong>Elementary</strong></p>
-            </div>
-        </a>
-    </ng-template>
-    <ng-template pTemplate="end">
-        <div class="flex justify-content-center align-items-end">
-            <button pButton pRipple type="button" icon="pi pi-lock" class="ml-3 p-button-raised p-button-rounded"></button>
-        </div>
-    </ng-template>
+  <ng-template pTemplate="start">
+    <a routerLink="" class="flex">
+      <img src="../../../assets/images/apple.png" alt="Home" class="mr-2" />
+      <div class="flex-column">
+        <h3 class="mt-1">Lincoln Elementary</h3>
+      </div>
+    </a>
+  </ng-template>
+  <ng-template pTemplate="end">
+    <div class="flex justify-content-center align-items-end">
+      <button
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-lock"
+        class="ml-3 p-button-raised p-button-rounded"
+      ></button>
+    </div>
+  </ng-template>
 </p-menubar>

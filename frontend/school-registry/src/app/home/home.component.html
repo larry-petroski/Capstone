@@ -1,26 +1,52 @@
 <div class="m-2">
-    <h1 class="headings">Lincoln Elementary</h1>
-    <section>
-        <h2 class="headings">Welcome!</h2>
-        <p>The 2022 - 2023 school year is fast approaching. The faculty here at Lincoln
-            Elementary cannot wait for the kids to return. It is going to be a fun
-            filled year of learning and growing!</p>
-        <p>Here, you can find which classroom your child will be in. If you are unable to 
-            locate your child, please ensure to register them through the link below. Once
-            registered you can verify your childs teacher/classrom.</p>
-        <p>Let's have a fun and safe school year!</p>
-    </section>
-    <section class="flex flex-column">
-        <div class="flex justify-content-center m-4">
-            <a [routerLink]="['teachers']">All Teachers</a>
-        </div>
-        <div class="flex justify-content-around m-4">
-            <a *ngFor="let grade of grades" [routerLink]="['teachers', grade.gradeId]">{{grade.description}}</a>
-        </div>
-        <div class="mt-4 registerBtn">
-            <button pButton pRipple type="button" class="p-button-raised p-button-rounded">
-                Register a Student
-            </button>
-        </div>
-    </section>
+  <h1 class="headings">Lincoln Elementary</h1>
+  <section>
+    <h2 class="headings">Welcome!</h2>
+    <p>
+      The 2022 - 2023 school year is fast approaching. The faculty here at
+      Lincoln Elementary cannot wait for the kids to return. It is going to be a
+      fun filled year of learning and growing!
+    </p>
+    <p>
+      Here, you can find which classroom your child will be in. If you are
+      unable to locate your child, please ensure to register them through the
+      link below. Once registered you can verify your childs teacher/classrom.
+    </p>
+    <p>Let's have a fun and safe school year!</p>
+  </section>
+  <section class="flex flex-column">
+    <div class="flex justify-content-center m-4">
+      <button
+        pButton
+        pRipple
+        type="button"
+        class="p-button-raised p-button-rounded"
+        [routerLink]="['teachers']"
+      >
+        All Teachers
+      </button>
+    </div>
+    <div class="flex justify-content-around m-4">
+      <button
+        pButton
+        pRipple
+        type="button"
+        class="p-button-raised p-button-rounded"
+        *ngFor="let grade of grades"
+        [routerLink]="['teachers', grade.gradeId]"
+      >
+        {{ grade.description }}
+      </button>
+    </div>
+    <div class="mt-4 registerBtn">
+      <button
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-book"
+        label="Register a Student"
+        class="p-button-raised p-button-rounded"
+      ></button>
+    </div>
+  </section>
 </div>

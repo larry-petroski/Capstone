@@ -9,6 +9,7 @@ import { MenubarModule } from 'primeng/menubar';
 import { ButtonModule } from 'primeng/button';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { AvatarModule } from 'primeng/avatar';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -35,7 +36,8 @@ import { CardComponent } from './components/card/card.component';
     MenubarModule,
     ButtonModule,
     AutoCompleteModule,
-    AvatarModule
+    AvatarModule,
+    ScrollPanelModule
   ],
   providers: [],
   bootstrap: [AppComponent]
