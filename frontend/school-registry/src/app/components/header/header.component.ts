@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
     setMenuItems(grades: Grade[]): void {
       this.items = [];
       grades.forEach((grade) => {
-      let item: MenuItem = { label: grade.gradeName, routerLink: [''] };
+      let item: MenuItem = { label: grade.gradeName, routerLink: ['teachers', grade.gradeId] };
       this.items.push(item);
     });
   }

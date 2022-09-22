@@ -74,27 +74,27 @@ function getNextId(counterType) {
 // ------ Validation helpers ------------------
 
 function isValidTeacher(teacher) {
-  if (group.TeacherName == undefined || group.TeacherName.trim() == "") return 1;
+  if (group.teacherName == undefined || group.teacherName.trim() == "") return 1;
   if (
     group.GradeName == undefined ||
     group.GradeName.trim() == ""
   )
     return 2;
-  if (group.TeacherPhone == undefined || group.TeacherPhone.trim() == "")
+  if (group.teacherPhone == undefined || group.teacherPhone.trim() == "")
     return 3;
-  if (group.TeacherEmail == undefined || group.TeacherEmail.trim() == "")
+  if (group.teacherEmail == undefined || group.teacherEmail.trim() == "")
     return 4;
-  if (group.MaxClassSize == undefined || isNaN(group.MaxClassSize)) return 5;
+  if (group.maxClassSize == undefined || isNaN(group.maxClassSize)) return 5;
 
   return -1;
 }
 
 function isValidStudent(student) {
-  if (student.StudentEmail == undefined || student.StudentEmail.trim() == "")
+  if (student.studentEmail == undefined || student.studentEmail.trim() == "")
     return 1;
-  if (student.StudentName == undefined || student.StudentName.trim() == "")
+  if (student.studentName == undefined || student.studentName.trim() == "")
     return 2;
-  if (student.StudentPhone == undefined || student.StudentPhone.trim() == "")
+  if (student.studentPhone == undefined || student.studentPhone.trim() == "")
     return 3;
 
   return -1;
@@ -151,7 +151,7 @@ app.get("/api/teachers/:id", function (req, res) {
   let data = fs.readFileSync(__dirname + "/data/teachers.json", "utf8");
   data = JSON.parse(data);
 
-  let match = data.find((element) => element.TeacherId == id);
+  let match = data.find((element) => element.teacherId == id);
   if (match == null) {
     res.status(404).send("Teacher Not Found");
     console.log("Teacher not found");
@@ -173,7 +173,7 @@ app.get("/api/teachers/bygrade/:id", function (req, res) {
   orgData = JSON.parse(orgData);
 
   let organization = orgData.find(
-    (element) => element.GradeId.toLowerCase() == id.toLowerCase()
+    (element) => element.gradeId.toLowerCase() == id.toLowerCase()
   );
   if (organization == null) {
     res.status(404).send("Grade Not Found");
@@ -186,7 +186,7 @@ app.get("/api/teachers/bygrade/:id", function (req, res) {
 
   // find the matching groups for a specific organization
   let matches = data.filter(
-    (element) => element.GradeName == organization.GradeName
+    (element) => element.gradeName == organization.gradeName
   );
 
   console.log("Returned data is: ");
@@ -195,9 +195,9 @@ app.get("/api/teachers/bygrade/:id", function (req, res) {
 });
 
 // GET A SPECIFIC STUDENT IN A SPECIFIC CLASS
-app.get("/api/teachers/:teacherid/students/:studentid", function (req, res) {
+app.get("/api/teachers/:teacherid/students/:studentId", function (req, res) {
   let teacherId = req.params.teacherid;
-  let studentId = req.params.studentid;
+  let studentId = req.params.studentId;
   console.log(
     "Received a GET request for student " + studentId + " in class " + teacherId
   );
@@ -206,7 +206,7 @@ app.get("/api/teachers/:teacherid/students/:studentid", function (req, res) {
   data = JSON.parse(data);
 
   // find the group
-  let matchingGroup = data.find((element) => element.TeacherId == teacherId);
+  let matchingGroup = data.find((element) => element.teacherId == teacherId);
   if (matchingGroup == null) {
     res.status(404).send("Teacher Not Found");
     console.log("Teacher not found");
@@ -214,7 +214,7 @@ app.get("/api/teachers/:teacherid/students/:studentid", function (req, res) {
   }
 
   // find the member
-  let match = matchingGroup.Students.find((s) => s.StudentId == studentId);
+  let match = matchingGroup.students.find((s) => s.studentId == studentId);
   if (match == null) {
     res.status(404).send("Student Not Found");
     console.log("Student not found");
@@ -233,13 +233,13 @@ app.post("/api/teachers", urlencodedParser, function (req, res) {
 
   // assemble group information so we can validate it
   let teacher = {
-    TeacherId: getNextId("teacher"), // assign id to group
-    TeacherName: req.body.TeacherName,
-    GradeName: req.body.GradeName,
-    TeacherPhone: req.body.TeacherPhone,
-    TeacherEmail: req.body.TeacherEmail,
-    MaxClassSize: Number(req.body.MaxClassSize),
-    Students: [],
+    teacherId: getNextId("teacher"), // assign id to group
+    teacherName: req.body.teacherName,
+    gradeName: req.body.GradeName,
+    teacherPhone: req.body.teacherPhone,
+    teacherEmail: req.body.teacherEmail,
+    maxClassSize: Number(req.body.maxClassSize),
+    students: [],
   };
 
   console.log("Performing validation...");
@@ -272,12 +272,12 @@ app.put("/api/teachers", urlencodedParser, function (req, res) {
 
   // assemble teacher information so we can validate it
   let teacher = {
-    TeacherId: req.body.TeacherId, //req.params.id if you use id in URL instead of req.body.TeacherId
-    TeacherName: req.body.TeacherName,
+    teacherId: req.body.teacherId, //req.params.id if you use id in URL instead of req.body.teacherId
+    teacherName: req.body.teacherName,
     GradeName: req.body.GradeName,
-    TeacherPhone: req.body.TeacherPhone,
-    TeacherEmail: req.body.TeacherEmail,
-    MaxClassSize: Number(req.body.MaxClassSize),
+    teacherPhone: req.body.teacherPhone,
+    teacherEmail: req.body.teacherEmail,
+    maxClassSize: Number(req.body.maxClassSize),
   };
 
   console.log("Performing validation...");
@@ -292,7 +292,7 @@ app.put("/api/teachers", urlencodedParser, function (req, res) {
   data = JSON.parse(data);
 
   // find the teacher
-  let match = data.find((element) => element.TeacherId == teacher.TeacherId);
+  let match = data.find((element) => element.teacherId == teacher.teacherId);
   if (match == null) {
     res.status(404).send("Teacher Not Found");
     console.log("Teacher not found");
@@ -300,21 +300,21 @@ app.put("/api/teachers", urlencodedParser, function (req, res) {
   }
 
   // update the teacher
-  match.TeacherName = teacher.TeacherName;
+  match.teacherName = teacher.teacherName;
   match.GradeName = teacher.GradeName;
   match.SponsorName = teacher.SponsorName;
-  match.TeacherPhone = teacher.TeacherPhone;
-  match.TeacherEmail = teacher.TeacherEmail;
+  match.teacherPhone = teacher.teacherPhone;
+  match.teacherEmail = teacher.teacherEmail;
 
-  // make sure new values for MaxClassSize doesn't invalidate grooup
-  if (Number(teacher.MaxClassSize) < match.Students.length) {
+  // make sure new values for maxClassSize doesn't invalidate grooup
+  if (Number(teacher.maxClassSize) < match.students.length) {
     res
       .status(409)
       .send("New class size too small based on current number of students");
     console.log("New class size too small based on current number of students");
     return;
   }
-  match.MaxClassSize = Number(teacher.MaxClassSize);
+  match.maxClassSize = Number(teacher.maxClassSize);
 
   fs.writeFileSync(__dirname + "/data/teachers.json", JSON.stringify(data));
 
@@ -332,7 +332,7 @@ app.delete("/api/teachers/:id", function (req, res) {
   data = JSON.parse(data);
 
   // find the index number of the group in the array
-  let foundAt = data.findIndex((element) => element.TeacherId == id);
+  let foundAt = data.findIndex((element) => element.teacherId == id);
 
   // delete the group if found
   if (foundAt != -1) {
@@ -354,10 +354,10 @@ app.post("/api/teachers/:id/students", urlencodedParser, function (req, res) {
 
   // assemble student information so we can validate it
   let student = {
-    StudentId: getNextId("student"), // assign new id
-    StudentEmail: req.body.StudentEmail,
-    StudentName: req.body.StudentName,
-    StudentPhone: req.body.StudentPhone,
+    studentId: getNextId("student"), // assign new id
+    studentEmail: req.body.studentEmail,
+    studentName: req.body.studentName,
+    studentPhone: req.body.studentPhone,
   };
 
   console.log("Performing student validation...");
@@ -372,21 +372,21 @@ app.post("/api/teachers/:id/students", urlencodedParser, function (req, res) {
   data = JSON.parse(data);
 
   // find the group
-  let match = data.find((element) => element.TeacherId == id);
+  let match = data.find((element) => element.teacherId == id);
   if (match == null) {
     res.status(404).send("Teacher Not Found");
     console.log("Teacher not found");
     return;
   }
 
-  if (match.Students.length == match.MaxClassSize) {
+  if (match.students.length == match.maxClassSize) {
     res.status(409).send("Student not added - class at capacity");
     console.log("Student not added - class at capacity");
     return;
   }
 
   // add the member
-  match.Students.push(student);
+  match.students.push(student);
 
   fs.writeFileSync(__dirname + "/data/teachers.json", JSON.stringify(data));
 
@@ -405,10 +405,10 @@ app.put("/api/teachers/:id/students", urlencodedParser, function (req, res) {
 
   // assemble member information so we can validate it
   let student = {
-    StudentId: req.body.StudentId,
-    StudentEmail: req.body.StudentEmail,
-    StudentName: req.body.StudentName,
-    StudentPhone: req.body.StudentPhone,
+    studentId: req.body.studentId,
+    studentEmail: req.body.studentEmail,
+    studentName: req.body.studentName,
+    studentPhone: req.body.studentPhone,
   };
 
   console.log("Performing member validation...");
@@ -424,15 +424,15 @@ app.put("/api/teachers/:id/students", urlencodedParser, function (req, res) {
   data = JSON.parse(data);
 
   // find the group
-  let matchingGroup = data.find((element) => element.TeacherId == id);
+  let matchingGroup = data.find((element) => element.teacherId == id);
   if (matchingGroup == null) {
     res.status(404).send("Teacher Not Found");
     return;
   }
 
   // find the member
-  let match = matchingGroup.Students.find(
-    (m) => m.StudentId == req.body.StudentId
+  let match = matchingGroup.students.find(
+    (m) => m.studentId == req.body.studentId
   );
   if (match == null) {
     res.status(404).send("Student Not Found");
@@ -440,9 +440,9 @@ app.put("/api/teachers/:id/students", urlencodedParser, function (req, res) {
   }
 
   // update the member
-  match.StudentEmail = req.body.StudentEmail;
-  match.StudentName = req.body.StudentName;
-  match.StudentPhone = req.body.StudentPhone;
+  match.studentEmail = req.body.studentEmail;
+  match.studentName = req.body.studentName;
+  match.studentPhone = req.body.studentPhone;
 
   fs.writeFileSync(__dirname + "/data/teachers.json", JSON.stringify(data));
 
@@ -452,11 +452,11 @@ app.put("/api/teachers/:id/students", urlencodedParser, function (req, res) {
 
 // DELETE A MEMBER IN A GROUP
 app.delete(
-  "/api/groups/:teacherid/members/:studentid",
+  "/api/groups/:teacherid/members/:studentId",
   urlencodedParser,
   function (req, res) {
     let teacherId = req.params.teacherid;
-    let studentId = req.params.studentid;
+    let studentId = req.params.studentId;
     console.log(
       "Received a DELETE request for member " +
         studentId +
@@ -468,7 +468,7 @@ app.delete(
     let data = fs.readFileSync(__dirname + "/data/teachers.json", "utf8");
     data = JSON.parse(data);
 
-    let matchingGroup = data.find((element) => element.TeacherId == teacherId);
+    let matchingGroup = data.find((element) => element.teacherId == teacherId);
     if (matchingGroup == null) {
       res.status(404).send("Teacher Not Found");
       console.log("Teacher not found");
@@ -476,13 +476,13 @@ app.delete(
     }
 
     // find the student
-    let foundAt = matchingGroup.Students.findIndex(
-      (m) => m.Studentid == studentid
+    let foundAt = matchingGroup.students.findIndex(
+      (m) => m.studentId == studentId
     );
 
     // delete the student if found
     if (foundAt != -1) {
-      matchingGroup.Students.splice(foundAt, 1);
+      matchingGroup.students.splice(foundAt, 1);
     }
 
     fs.writeFileSync(__dirname + "/data/teachers.json", JSON.stringify(data));

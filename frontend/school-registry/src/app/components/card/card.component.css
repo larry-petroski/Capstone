@@ -1,0 +1,13 @@
+.cards {
+    flex: 0 1 25%;
+}
+
+.background {
+    background-color: #f8f9fa;
+    border: 1px solid #f8f9fa;
+    border-radius: 10%;
+}
+
+p {
+    font-size: 1.5em;
+}
