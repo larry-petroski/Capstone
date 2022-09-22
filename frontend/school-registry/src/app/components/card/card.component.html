@@ -1,0 +1,21 @@
+<div class="flex flex-wrap justify-content-center gap-4">
+    <div *ngIf="!hasTeachers; else showTeachers">
+        <p><strong>There are no teachers meeting this criteria!</strong></p>
+    </div>
+</div>
+<ng-template #showTeachers>
+    <div *ngFor="let teacher of teachers" class="cards background p-4">
+        <div class="flex border-bottom-1 pb-4">
+            <p-avatar class="mr-2" icon="pi pi-user" size="xlarge" shape="circle"></p-avatar>
+            <div class="flex flex-column align-items-start">
+                <span class="text-lg font-medium mb-1">{{teacher.teacherName}}</span>
+                <span class="font-medium mb-2">Grade: {{teacher.gradeName}}</span>
+                <span class="font-medium mb-2">Max Class Size: {{teacher.maxClassSize}}</span>
+            </div>
+        </div>
+        <div class="flex justify-content-between pt-4">
+            <button pButton pRipple icon="pi pi-hashtag" class="p-button-raise w-6 mr-2">Teacher Info</button>
+            <button pButton pRipple icon="pi pi-hashtag" class="p-button-raise w-6 ml-2">Students</button>
+        </div>
+    </div>
+</ng-template>

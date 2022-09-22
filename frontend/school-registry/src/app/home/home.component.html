@@ -12,10 +12,10 @@
     </section>
     <section class="flex flex-column">
         <div class="flex justify-content-center m-4">
-            <a href="#">All Teachers</a>
+            <a [routerLink]="['teachers']">All Teachers</a>
         </div>
         <div class="flex justify-content-around m-4">
-            <a *ngFor="let grade of grades" href="#">{{grade.gradeName}}</a>
+            <a *ngFor="let grade of grades" [routerLink]="['teachers', grade.gradeId]">{{grade.description}}</a>
         </div>
         <div class="mt-4 registerBtn">
             <button pButton pRipple type="button" class="p-button-raised p-button-rounded">

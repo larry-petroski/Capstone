@@ -8,17 +8,22 @@ import { RippleModule } from 'primeng/ripple';
 import { MenubarModule } from 'primeng/menubar';
 import { ButtonModule } from 'primeng/button';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AvatarModule } from 'primeng/avatar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './components/header/header.component';
+import { TeachersListComponent } from './teachers-list/teachers-list.component';
+import { CardComponent } from './components/card/card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    TeachersListComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +34,8 @@ import { HeaderComponent } from './components/header/header.component';
     RippleModule,
     MenubarModule,
     ButtonModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    AvatarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
