@@ -8,7 +8,7 @@
       height: 'auto',
       maxHeight: 'calc(97vh - 390px)',
       margin: '0 auto',
-      backgroundColor: '#c4ccd5'
+      backgroundColor: 'var(--surface-300)'
     }"
   >
     <section class="flex flex-wrap justify-content-evenly">
@@ -37,6 +37,7 @@
             icon="pi pi-id-card"
             label="Teacher Info"
             class="p-button-raised p-button-rounded"
+            (click)="openInfo(teacher)"
           ></button>
           <button
             pButton

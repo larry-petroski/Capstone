@@ -17,9 +17,17 @@ export class TeachersListComponent implements OnInit {
       const id = param.get('id');
 
       if (id && id.length === 1) {
-        this.teachersSvc.getTeachersByGrade(id);
+        this.teachersSvc.getTeachersByGrade(id).subscribe({
+          next: (teachers) => this.teachersSvc.sendTeacher(teachers),
+          error: err => console.error(err.message),
+          complete: () => {}
+        });
       } else {
-        this.teachersSvc.getAllTeachers();
+        this.teachersSvc.getAllTeachers().subscribe({
+          next: (teachers) => this.teachersSvc.sendTeacher(teachers),
+          error: err => console.error(err.message),
+          complete: () => {}
+        });
       }
     });
   }

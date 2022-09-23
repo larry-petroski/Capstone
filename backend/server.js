@@ -51,13 +51,13 @@ function getNextId(counterType) {
   // counter in the file to indicate that id was used
   let id = -1;
   switch (counterType.toLowerCase()) {
-    case "group":
-      id = data.nextGroup;
-      data.nextGroup++;
+    case "teacher":
+      id = data.nextTeacher;
+      data.nextTeacher++;
       break;
-    case "member":
-      id = data.nextMember;
-      data.nextMember++;
+    case "student":
+      id = data.nextStudent;
+      data.nextStudent++;
       break;
     case "user":
       id = data.nextUser;
@@ -74,17 +74,18 @@ function getNextId(counterType) {
 // ------ Validation helpers ------------------
 
 function isValidTeacher(teacher) {
-  if (group.teacherName == undefined || group.teacherName.trim() == "") return 1;
+  console.log(teacher);
+  if (teacher.teacherName == undefined || teacher.teacherName.trim() == "") return 1;
   if (
-    group.GradeName == undefined ||
-    group.GradeName.trim() == ""
+    teacher.gradeName == undefined ||
+    teacher.gradeName.trim() == ""
   )
     return 2;
-  if (group.teacherPhone == undefined || group.teacherPhone.trim() == "")
+  if (teacher.teacherPhone == undefined || teacher.teacherPhone.trim() == "")
     return 3;
-  if (group.teacherEmail == undefined || group.teacherEmail.trim() == "")
+  if (teacher.teacherEmail == undefined || teacher.teacherEmail.trim() == "")
     return 4;
-  if (group.maxClassSize == undefined || isNaN(group.maxClassSize)) return 5;
+  if (teacher.maxClassSize == undefined || isNaN(teacher.maxClassSize)) return 5;
 
   return -1;
 }
@@ -235,7 +236,7 @@ app.post("/api/teachers", urlencodedParser, function (req, res) {
   let teacher = {
     teacherId: getNextId("teacher"), // assign id to group
     teacherName: req.body.teacherName,
-    gradeName: req.body.GradeName,
+    gradeName: req.body.gradeName,
     teacherPhone: req.body.teacherPhone,
     teacherEmail: req.body.teacherEmail,
     maxClassSize: Number(req.body.maxClassSize),
