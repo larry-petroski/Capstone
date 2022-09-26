@@ -21,7 +21,7 @@
         pRipple
         type="button"
         class="p-button-raised p-button-rounded"
-        [routerLink]="['teachers']"
+        [routerLink]="['/teachers']"
       >
         All Teachers
       </button>
@@ -33,7 +33,7 @@
         type="button"
         class="p-button-raised p-button-rounded"
         *ngFor="let grade of grades"
-        [routerLink]="['teachers', grade.gradeId]"
+        [routerLink]="['/teachers', grade.gradeId]"
       >
         {{ grade.description }}
       </button>
@@ -46,6 +46,7 @@
         icon="pi pi-book"
         label="Register a Student"
         class="p-button-raised p-button-rounded"
+        [routerLink]="['/student-info']"
       ></button>
     </div>
   </section>
