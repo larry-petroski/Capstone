@@ -51,7 +51,7 @@ export class TeacherComponent implements OnInit, OnDestroy {
     this.browserRefresh = browserRefresh;
 
     this.teacherForm = this.fb.group({
-      title: [null, Validators.required],
+      title: [this.titles[0], Validators.required],
       firstName: [null, Validators.required],
       lastName: [null, Validators.required],
       phone: [null, Validators.required],
