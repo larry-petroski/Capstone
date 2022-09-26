@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SharedModule } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
@@ -10,6 +11,11 @@ import { ButtonModule } from 'primeng/button';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { AvatarModule } from 'primeng/avatar';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { PanelModule } from 'primeng/panel';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputMaskModule } from 'primeng/inputmask';
+import { ToastModule } from 'primeng/toast';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +23,7 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './components/header/header.component';
 import { TeachersListComponent } from './teachers-list/teachers-list.component';
 import { CardComponent } from './components/card/card.component';
+import { TeacherComponent } from './teacher/teacher.component';
 
 @NgModule({
   declarations: [
@@ -24,20 +31,28 @@ import { CardComponent } from './components/card/card.component';
     HomeComponent,
     HeaderComponent,
     TeachersListComponent,
-    CardComponent
+    CardComponent,
+    TeacherComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     SharedModule,
     RippleModule,
     MenubarModule,
     ButtonModule,
     AutoCompleteModule,
     AvatarModule,
-    ScrollPanelModule
+    ScrollPanelModule,
+    PanelModule,
+    DropdownModule,
+    InputNumberModule,
+    InputMaskModule,
+    ToastModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -5,5 +5,5 @@ export interface Teacher {
     teacherPhone: string;
     teacherEmail: string;
     maxClassSize: number;
-    students: Object[];
+    students?: Object[];
 }
