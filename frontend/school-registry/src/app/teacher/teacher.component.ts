@@ -107,9 +107,6 @@ export class TeacherComponent implements OnInit, OnDestroy {
     };
 
     let grade = this.grades.find((g) => g.gradeName === teacher.gradeName);
-    if (grade) {
-      this.teacher.gradeName = grade.gradeName;
-    }
 
     if (!this.updateExistingTeacher) {
       this.teachersSvc.addTeacher(teacher).subscribe({
