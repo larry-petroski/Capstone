@@ -10,7 +10,7 @@ import { Teacher } from '../models/teacher.model';
 export class TeachersService {
   private teachersUrl = 'http://localhost:8085/api/teachers';
   private teachersByGradeUrl = 'http://localhost:8085/api/teachers/bygrade';
-  private teachers$ = new Subject<any>();
+  private teachers$ = new Subject<Teacher[]>();
 
   jsonContentTypeHeaders = {
     headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -18,22 +18,19 @@ export class TeachersService {
 
   constructor(private http: HttpClient) {}
 
-  getAllTeachers(): Observable<Teacher> {
-    this.teachers$.next(null);
-    return this.http.get<Teacher>(this.teachersUrl);
+  getAllTeachers(): Observable<Teacher[]> {
+    return this.http.get<Teacher[]>(this.teachersUrl);
   }
 
-  getTeachersByGrade(grade: string): Observable<Teacher> {
-    this.teachers$.next(null);
-    return this.http.get<Teacher>(`${this.teachersByGradeUrl}/${grade}`);
+  getTeachersByGrade(grade: string): Observable<Teacher[]> {
+    return this.http.get<Teacher[]>(`${this.teachersByGradeUrl}/${grade}`);
   }
 
-  getTeachersById(id: number): Observable<Teacher> {
-    this.teachers$.next(null);
+  getTeacherById(id: number): Observable<Teacher> {
     return this.http.get<Teacher>(`${this.teachersUrl}/${id}`);
   }
 
-  sendTeacher(teacher: Teacher) {
+  sendTeacher(teacher: Teacher[]) {
     this.teachers$.next(teacher);
   }
 
@@ -45,12 +42,15 @@ export class TeachersService {
     );
   }
 
+  updateTeacher(teacher: Teacher): Observable<Teacher> {
+    return this.http.put<Teacher>(this.teachersUrl, teacher, this.jsonContentTypeHeaders);
+  }
+
   deleteTeacher(id: number) {
     return this.http.delete(`${this.teachersUrl}/${id}`);
   }
 
   teachers(): Observable<Teacher[]> {
-    console.log(this.teachers$);
     return this.teachers$.asObservable();
   }
 }

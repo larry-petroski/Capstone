@@ -37,7 +37,8 @@
             icon="pi pi-id-card"
             label="Teacher Info"
             class="p-button-raised p-button-rounded"
-            (click)="openInfo(teacher)"
+            [routerLink]="['/teacher-info', teacher.teacherId]"
+            (click)="openTeacherInfo(teacher.teacherId)"
           ></button>
           <button
             pButton

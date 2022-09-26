@@ -15,6 +15,7 @@ import { PanelModule } from 'primeng/panel';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputMaskModule } from 'primeng/inputmask';
+import { ToastModule } from 'primeng/toast';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -50,7 +51,8 @@ import { TeacherComponent } from './teacher/teacher.component';
     PanelModule,
     DropdownModule,
     InputNumberModule,
-    InputMaskModule
+    InputMaskModule,
+    ToastModule
   ],
   providers: [],
   bootstrap: [AppComponent]

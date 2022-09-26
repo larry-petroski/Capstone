@@ -1,3 +1,19 @@
+<p-toast></p-toast>
+<p-toast position="center" key="center" (onClose)="cancelled()">
+    <ng-template let-message pTemplate="message">
+        <div class="flex flex-column flex-1">
+            <div class="text-center">
+                <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+                <h4>{{message.summary}}</h4>
+                <p>{{message.detail}}</p>
+            </div>
+            <div class="flex justify-content-around my-3">
+                <button type="button" pButton pRipple (click)="onDelete()" label="Delete" class="p-button-danger"></button>
+                <button type="button" pButton pRipple (click)="cancelled()" label="Cancel" class="p-button-secondary"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>
 <p-panel header="Teacher Info" [style]="{width: '65vw', margin: '0 auto'}">
     <form [formGroup]="teacherForm" (ngSubmit)="onSubmit(teacherForm.value)">
         <div class="flex">
@@ -50,7 +66,7 @@
         <div class="flex justify-content-center my-4">
             <button type="submit" pButton pRipple label="Save" icon="pi pi-check" class="mx-4"></button>
             <button type="button" pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-secondary mx-4" (click)="onCancel()"></button>
-            <button type="button" [disabled]="!teacherId" pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger mx-4" (click)="onDelete()"></button>
+            <button type="button" [disabled]="!teacherId" pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger mx-4" (click)="confirmDelete()"></button>
         </div>
     </form>
 </p-panel>

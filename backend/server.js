@@ -275,7 +275,7 @@ app.put("/api/teachers", urlencodedParser, function (req, res) {
   let teacher = {
     teacherId: req.body.teacherId, //req.params.id if you use id in URL instead of req.body.teacherId
     teacherName: req.body.teacherName,
-    GradeName: req.body.GradeName,
+    gradeName: req.body.gradeName,
     teacherPhone: req.body.teacherPhone,
     teacherEmail: req.body.teacherEmail,
     maxClassSize: Number(req.body.maxClassSize),
@@ -302,7 +302,7 @@ app.put("/api/teachers", urlencodedParser, function (req, res) {
 
   // update the teacher
   match.teacherName = teacher.teacherName;
-  match.GradeName = teacher.GradeName;
+  match.gradeName = teacher.gradeName;
   match.SponsorName = teacher.SponsorName;
   match.teacherPhone = teacher.teacherPhone;
   match.teacherEmail = teacher.teacherEmail;

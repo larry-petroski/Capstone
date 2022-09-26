@@ -1,4 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { createHostListener } from '@angular/compiler/src/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -28,13 +29,13 @@ export class CardComponent implements OnInit, OnDestroy {
     });
   }
 
-  openInfo(teacher: Teacher) {
-    this.teachersSvc.getTeachersById(teacher.teacherId).subscribe((t) => {
-      this.teachersSvc.sendTeacher(t);
-      this.router.navigate(['/teacher-info', teacher.teacherId]);
+  openTeacherInfo(id: number) {
+    this.teachersSvc.getTeacherById(id).subscribe(teachers => {
+      this.teachersSvc.sendTeacher([ teachers ]);
     });
   }
 
+  @HostListener('unloaded')
   ngOnDestroy(): void {
     console.log('destroyed');
     this.teachersSub.unsubscribe();
