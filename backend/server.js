@@ -453,7 +453,7 @@ app.put("/api/teachers/:id/students", urlencodedParser, function (req, res) {
 
 // DELETE A MEMBER IN A GROUP
 app.delete(
-  "/api/groups/:teacherid/members/:studentId",
+  "/api/teachers/:teacherid/students/:studentId",
   urlencodedParser,
   function (req, res) {
     let teacherId = req.params.teacherid;

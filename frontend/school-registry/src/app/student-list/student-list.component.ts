@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Student } from '../models/student.model';
 import { Teacher } from '../models/teacher.model';
@@ -19,6 +19,7 @@ export class StudentListComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private teachersSvc: TeachersService
   ) {
     this.route.paramMap.subscribe((pm) => {
@@ -51,6 +52,7 @@ export class StudentListComponent implements OnInit {
   }
 
   onRowSelect(event: any) {
-    console.log(event);
+    let student: Student = event.data;
+    this.router.navigate(['/teachers', this.teacherId, 'student-info', student.studentId]);
   }
 }

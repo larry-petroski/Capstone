@@ -128,7 +128,7 @@ export class TeacherComponent implements OnInit, OnDestroy {
     } else {
       this.teachersSvc.updateTeacher(teacher).subscribe({
         next: () => {
-          this.router.navigate(['teachers', grade?.gradeId]);
+          this.router.navigate(['/teachers', grade?.gradeId]);
         },
         error: (err) => {
           this.msgSvc.add({

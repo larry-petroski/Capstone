@@ -1,4 +1,4 @@
-<!-- <p-toast></p-toast>
+<!-- <p-toast></p-toast> -->
 <p-toast position="center" key="center">
     <ng-template let-message pTemplate="message">
         <div class="flex flex-column flex-1">
@@ -8,14 +8,14 @@
                 <p>{{message.detail}}</p>
             </div>
             <div class="flex justify-content-around my-3">
-                <button type="button" pButton pRipple label="Delete" class="p-button-danger"></button>
-                <button type="button" pButton pRipple label="Cancel" class="p-button-secondary"></button>
+                <button type="button" pButton pRipple label="Delete" class="p-button-danger" (click)="onDelete()"></button>
+                <button type="button" pButton pRipple label="Cancel" class="p-button-secondary" (click)="cancelled()"></button>
             </div>
         </div>
     </ng-template>
-</p-toast> -->
+</p-toast>
 <p-panel header="Student Info" [style]="{width: '65vw', margin: '0 auto'}">
-    <form [formGroup]="studentForm">
+    <form [formGroup]="studentForm" (ngSubmit)="onSubmit(studentForm.value)">
         <div class="flex">
             <section class="w-6">
                 <div class="flex align-items-center justify-content-evenly">
@@ -41,11 +41,11 @@
                 <div class="flex flex-column">
                     <div class="flex justify-content-center align-items-center mb-2">
                         <label for="grade">Grade</label>
-                        <p-dropdown formControlName="grade" [options]="grades" optionLabel="description" optionValue="gradeName"></p-dropdown>
+                        <p-dropdown formControlName="grade" (onChange)="resetTeacher($event)" [options]="grades" optionLabel="description" optionValue="gradeName"></p-dropdown>
                     </div>
                     <div class="flex justify-content-center align-items-center mb-4">
                         <label for="teacher">Teacher</label>
-                        <input formControlName="teacher" pInputText type="text" name="teacher" id="teacher" class="p-inputtext p-component">
+                        <input formControlName="teacher" [disabled]="true" pInputText type="text" name="teacher" id="teacher" class="p-inputtext p-component">
                     </div>
                     <div class="flex justify-content-center align-items-center mb-3">
                         <label for="phone">Parent Phone</label>
@@ -60,8 +60,8 @@
         </div>
         <div class="flex justify-content-center my-4">
             <button type="submit" pButton pRipple label="Save" icon="pi pi-check" class="mx-4"></button>
-            <button type="button" pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-secondary mx-4"></button>
-            <button type="button" pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger mx-4"></button>
+            <button type="button" pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-secondary mx-4" (click)="onCancel()"></button>
+            <button type="button" pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger mx-4" (click)="confirmDelete()"></button>
         </div>
     </form>
 </p-panel>
