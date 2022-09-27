@@ -12,3 +12,7 @@ h3 {
     width: 100px;
     word-break: break-word;
 }
+
+::ng-deep .p-menubar .p-menubar-end {
+    width: 95%;
+}

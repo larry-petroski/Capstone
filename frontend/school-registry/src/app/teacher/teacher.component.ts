@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -34,7 +35,8 @@ export class TeacherComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private teachersSvc: TeachersService,
     private gradesSvc: GradesService,
-    private msgSvc: MessageService
+    private msgSvc: MessageService,
+    private locSvc: Location
   ) {
     this.gradesSub = this.gradesSvc
       .getGrades<Grade[]>()
@@ -113,7 +115,7 @@ export class TeacherComponent implements OnInit, OnDestroy {
     if (!this.updateExistingTeacher) {
       this.teachersSvc.addTeacher(teacher).subscribe({
         next: () => {
-          this.router.navigate(['/teachers', grade?.gradeId]);
+          this.router.navigate(['/teachers']);
         },
         error: (err) => {
           this.msgSvc.add({
@@ -128,7 +130,7 @@ export class TeacherComponent implements OnInit, OnDestroy {
     } else {
       this.teachersSvc.updateTeacher(teacher).subscribe({
         next: () => {
-          this.router.navigate(['/teachers', grade?.gradeId]);
+          this.router.navigate(['/teachers']);
         },
         error: (err) => {
           this.msgSvc.add({
@@ -144,7 +146,7 @@ export class TeacherComponent implements OnInit, OnDestroy {
   }
 
   onCancel() {
-    this.router.navigate(['/teachers']);
+    this.locSvc.back();
   }
 
   confirmDelete() {
