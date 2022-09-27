@@ -37,7 +37,6 @@ export class CardComponent implements OnInit, OnDestroy {
 
   @HostListener('unloaded')
   ngOnDestroy(): void {
-    console.log('destroyed');
     this.teachersSub.unsubscribe();
   }
 }

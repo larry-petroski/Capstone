@@ -1,0 +1,49 @@
+<div *ngIf="students.length === 0; else showStudents">
+  <h2 class="text-center">
+    There are no students in {{ teacherName }}'s class.
+  </h2>
+</div>
+<ng-template #showStudents>
+  <div class="flex justify-content-center">
+    <p-panel header="{{ teacherName }}'s Class" styleClass="datatable-striped">
+      <p-table [value]="students" [scrollable]="true" scrollHeight="400px" responsiveLayout="scroll" selectionMode="single" [(selection)]="selectedStudent"
+      dataKey="studentId" (onRowSelect)="onRowSelect($event)">
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="min-width: 200px"></th>
+            <th style="min-width: 200px">First Name</th>
+            <th style="min-width: 200px">Last Name</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-student>
+          <tr [pSelectableRow]="student">
+            <td style="min-width: 200px">
+              <p-avatar
+                icon="pi pi-user"
+                size="large"
+                shape="circle"
+              ></p-avatar>
+            </td>
+            <td style="min-width: 200px">
+              {{ student.studentName.split(" ")[0] }}
+            </td>
+            <td style="min-width: 200px">
+              {{ student.studentName.split(" ")[1] }}
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-panel>
+  </div>
+  <div class="flex justify-content-center mt-5">
+    <button
+      pButton
+      pRipple
+      type="button"
+      icon="pi pi-book"
+      label="Register a Student"
+      class="p-button-raised p-button-rounded"
+      [routerLink]="['/student-info']"
+    ></button>
+  </div>
+</ng-template>

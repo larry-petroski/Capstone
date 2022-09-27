@@ -97,9 +97,11 @@ export class TeacherComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(formValues: any) {
+    const title = formValues['title'] ? formValues['title'] : this.titles[0];
+
     const teacher: Teacher = {
       teacherId: this.teacherId ? this.teacherId : 0,
-      teacherName: `${formValues['title']} ${formValues['firstName']} ${formValues['lastName']}`,
+      teacherName: `${title} ${formValues['firstName']} ${formValues['lastName']}`,
       gradeName: formValues['grade'],
       teacherPhone: formValues['phone'],
       teacherEmail: formValues['email'],
@@ -126,7 +128,7 @@ export class TeacherComponent implements OnInit, OnDestroy {
     } else {
       this.teachersSvc.updateTeacher(teacher).subscribe({
         next: () => {
-          this.router.navigate(['teachers', grade?.gradeId]);
+          this.router.navigate(['/teachers', grade?.gradeId]);
         },
         error: (err) => {
           this.msgSvc.add({

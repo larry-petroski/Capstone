@@ -1,3 +1,5 @@
+import { Student } from "./student.model";
+
 export interface Teacher {
     teacherId: number;
     teacherName: string;
@@ -5,5 +7,5 @@ export interface Teacher {
     teacherPhone: string;
     teacherEmail: string;
     maxClassSize: number;
-    students?: Object[];
+    students?: Student[];
 }
