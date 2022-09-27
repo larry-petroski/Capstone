@@ -16,8 +16,8 @@
 </p-toast>
 <p-panel header="Teacher Info" [style]="{width: '65vw', margin: '0 auto'}">
     <form [formGroup]="teacherForm" (ngSubmit)="onSubmit(teacherForm.value)">
-        <div class="flex">
-            <section class="w-6">
+        <div class="flex justify-content-around">
+            <section class="w-5">
                 <div class="flex align-items-center justify-content-evenly">
                     <p-avatar
                     icon="pi pi-user"
@@ -26,36 +26,38 @@
                   ></p-avatar>
                   <button pButton pRipple class="p-button-raised p-button-rounded" icon="pi pi-plus" label="Upload Image"></button>
                 </div>
-                <div class="flex flex-column mt-5">
-                    <div class="flex justify-content-around align-items-center mb-3">
+
+                <div class="flex flex-column align-items-center mt-5">
+                    <div class="flex align-items-center mb-3">
                         <label for="title">Title</label>
                         <p-dropdown formControlName="title" [options]="titles"></p-dropdown>
                     </div>
-                    <div class="flex justify-content-around align-items-center mb-3">
+                    <div class="flex align-items-center mb-3">
                         <label for="firstName">First Name</label>
                         <input formControlName="firstName" pInputText type="text" name="firstName" id="firstName" class="p-inputtext p-component">
                     </div>
-                    <div class="flex justify-content-around align-items-center">
+                    <div class="flex align-items-center">
                         <label for="LastName">Last Name</label>
                         <input formControlName="lastName" pInputText type="text" name="LastName" id="LastName" class="p-inputtext p-component">
                     </div>
                 </div>
             </section>
-            <section class="w-6">
-                <div class="flex flex-column">
-                    <div class="flex justify-content-around align-items-center mb-2">
+            <section class="w-5">
+                <div class="flex flex-column align-items-center">
+                    <div class="flex align-items-center mb-2">
                         <label for="grade">Grade</label>
                         <p-dropdown formControlName="grade" [options]="grades" optionLabel="description" optionValue="gradeName"></p-dropdown>
                     </div>
-                    <div class="flex justify-content-around align-items-center mb-7">
+                    <div class="flex align-items-center mb-7">
                         <label for="classSize">Class Size</label>
                         <p-inputNumber formControlName="classSize" [size]=15 mode="decimal" [showButtons]="true" inputId="classSize" [min]="0" [max]="12"></p-inputNumber>
                     </div>
-                    <div class="flex justify-content-evenly align-items-center mb-3">
+                    <div class="flex align-items-center mb-3">
                         <label for="phone">Phone</label>
                         <p-inputMask formControlName="phone" mask="999-999-9999" placeholder="999-999-9999"></p-inputMask>
                     </div>
-                    <div class="flex justify-content-evenly align-items-center mb-3">
+                    <div class="flex align-items-center mb-3">
+
                         <label for="email">Email</label>
                         <input formControlName="email" pInputText type="email" name="email" id="email" class="p-inputtext p-component">
                     </div>

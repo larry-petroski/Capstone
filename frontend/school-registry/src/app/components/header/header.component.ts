@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { MenuItem } from 'primeng/api';
 
 import { Grade } from '../../models/grade.model';
 import { GradesService } from '../../services/grades.service';
+import { TeachersService } from '../../services/teachers.service';
+import { Teacher } from '../../models/teacher.model';
 
 @Component({
   selector: 'sr-header',
@@ -13,20 +16,40 @@ import { GradesService } from '../../services/grades.service';
 export class HeaderComponent implements OnInit {
   items!: MenuItem[];
 
-  constructor(private gradesSvc: GradesService) {}
+  grades!: Grade[];
+  teachers!: Teacher[];
+  filteredTeachers!: Teacher[];
+  searchText!: string;
+
+  constructor(private gradesSvc: GradesService, private teachersSvc: TeachersService, private router: Router) {}
 
   ngOnInit(): void {
     this.gradesSvc.getGrades<Grade[]>().subscribe(
-      (grades) => this.setMenuItems(grades),
+      (grades) => {this.grades = grades; this.setMenuItems()},
       (err) => console.error(err.message)
       );
     }
     
-    setMenuItems(grades: Grade[]): void {
+    setMenuItems(): void {
       this.items = [];
-      grades.forEach((grade) => {
+      this.grades.forEach((grade) => {
       let item: MenuItem = { label: grade.gradeName, routerLink: ['teachers', grade.gradeId] };
       this.items.push(item);
     });
+
+    this.teachersSvc.getAllTeachers().subscribe(teachers => this.teachers = teachers);
+  }
+
+  search(event: any) {
+    this.filteredTeachers = this.teachers.filter(teacher => teacher.teacherName.toLowerCase().includes(event.query.toLowerCase()));
+  }
+
+  onSelect(value: any) {
+    let teacher: Teacher = value;
+    let grade = this.grades.find(g => g.gradeName === teacher.gradeName);
+
+    this.router.navigate(['/teachers', grade?.gradeId]);
+    this.filteredTeachers = [];
+    this.searchText = '';
   }
 }
