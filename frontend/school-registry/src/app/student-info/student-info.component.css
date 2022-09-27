@@ -1,3 +1,11 @@
+::ng-deep .p-dropdown-label {
+    width: 10rem !important;
+}
+
 ::ng-deep .p-toast {
     opacity: 1 !important;
+}
+
+label {
+    width: 100px;
 }

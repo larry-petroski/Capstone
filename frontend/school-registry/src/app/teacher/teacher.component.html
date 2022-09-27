@@ -27,15 +27,15 @@
                   <button pButton pRipple class="p-button-raised p-button-rounded" icon="pi pi-plus" label="Upload Image"></button>
                 </div>
                 <div class="flex flex-column mt-5">
-                    <div class="flex justify-content-center align-items-center mb-3">
+                    <div class="flex justify-content-around align-items-center mb-3">
                         <label for="title">Title</label>
                         <p-dropdown formControlName="title" [options]="titles"></p-dropdown>
                     </div>
-                    <div class="flex justify-content-evenly align-items-center mb-3">
+                    <div class="flex justify-content-around align-items-center mb-3">
                         <label for="firstName">First Name</label>
                         <input formControlName="firstName" pInputText type="text" name="firstName" id="firstName" class="p-inputtext p-component">
                     </div>
-                    <div class="flex justify-content-evenly align-items-center">
+                    <div class="flex justify-content-around align-items-center">
                         <label for="LastName">Last Name</label>
                         <input formControlName="lastName" pInputText type="text" name="LastName" id="LastName" class="p-inputtext p-component">
                     </div>
@@ -43,19 +43,19 @@
             </section>
             <section class="w-6">
                 <div class="flex flex-column">
-                    <div class="flex justify-content-center align-items-center mb-2">
+                    <div class="flex justify-content-around align-items-center mb-2">
                         <label for="grade">Grade</label>
                         <p-dropdown formControlName="grade" [options]="grades" optionLabel="description" optionValue="gradeName"></p-dropdown>
                     </div>
-                    <div class="flex justify-content-center align-items-center mb-4">
-                        <label for="classSize">Max Class Size</label>
-                        <p-inputNumber formControlName="classSize" mode="decimal" [showButtons]="true" inputId="classSize" [min]="0" [max]="12"></p-inputNumber>
+                    <div class="flex justify-content-around align-items-center mb-7">
+                        <label for="classSize">Class Size</label>
+                        <p-inputNumber formControlName="classSize" [size]=15 mode="decimal" [showButtons]="true" inputId="classSize" [min]="0" [max]="12"></p-inputNumber>
                     </div>
-                    <div class="flex justify-content-center align-items-center mb-3">
+                    <div class="flex justify-content-evenly align-items-center mb-3">
                         <label for="phone">Phone</label>
                         <p-inputMask formControlName="phone" mask="999-999-9999" placeholder="999-999-9999"></p-inputMask>
                     </div>
-                    <div class="flex justify-content-center align-items-center mb-3">
+                    <div class="flex justify-content-evenly align-items-center mb-3">
                         <label for="email">Email</label>
                         <input formControlName="email" pInputText type="email" name="email" id="email" class="p-inputtext p-component">
                     </div>

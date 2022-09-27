@@ -57,7 +57,7 @@ export class TeacherComponent implements OnInit, OnDestroy {
       phone: [null, Validators.required],
       email: [null, Validators.required],
       grade: [null, Validators.required],
-      classSize: [null, Validators.required],
+      classSize: [0, Validators.required],
       avatar: [null],
     });
 
