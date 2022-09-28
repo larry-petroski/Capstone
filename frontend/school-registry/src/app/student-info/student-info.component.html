@@ -30,19 +30,19 @@
 </p-toast>
 <p-panel header="Student Info" [style]="{ width: '65vw', margin: '0 auto' }">
   <form [formGroup]="studentForm" (ngSubmit)="onSubmit(studentForm.value)">
-    <div class="flex justify-content-around">
+    <div class="flex justify-content-center">
       <section class="w-5">
-        <div class="flex align-items-center justify-content-evenly">
+        <div class="flex">
           <p-avatar icon="pi pi-user" size="xlarge" shape="circle"></p-avatar>
           <button
             pButton
             pRipple
-            class="p-button-raised p-button-rounded"
+            class="ml-5 p-button-raised p-button-rounded"
             icon="pi pi-plus"
             label="Upload Image"
           ></button>
         </div>
-        <div class="flex flex-column align-items-center mt-6">
+        <div class="flex flex-column mt-6">
           <div class="flex align-items-center mb-3">
             <label for="firstName">First Name</label>
             <input
@@ -52,7 +52,21 @@
               name="firstName"
               id="firstName"
               class="p-inputtext p-component"
+              [ngClass]="{
+                'ng-dirty ng-invalid':
+                  !studentForm.controls['firstName'].valid &&
+                  studentForm.controls['firstName'].touched
+              }"
             />
+            <p-message
+              *ngIf="
+                !studentForm.controls['firstName'].valid &&
+                studentForm.controls['firstName'].touched
+              "
+              severity="error"
+              text="Field is required."
+              class="ml-2"
+            ></p-message>
           </div>
           <div class="flex align-items-center">
             <label for="LastName">Last Name</label>
@@ -63,21 +77,50 @@
               name="LastName"
               id="LastName"
               class="p-inputtext p-component"
+              [ngClass]="{
+                'ng-dirty ng-invalid':
+                  !studentForm.controls['lastName'].valid &&
+                  studentForm.controls['lastName'].touched
+              }"
             />
+            <p-message
+              *ngIf="
+                !studentForm.controls['lastName'].valid &&
+                studentForm.controls['lastName'].touched
+              "
+              severity="error"
+              text="Field is required."
+              class="ml-2"
+            ></p-message>
           </div>
         </div>
       </section>
       <section class="w-5">
-        <div class="flex flex-column align-items-center">
+        <div class="flex flex-column">
           <div class="flex align-items-center mb-2">
             <label for="grade">Grade</label>
             <p-dropdown
               formControlName="grade"
+              placeholder="Select Grade"
               (onChange)="resetTeacher($event)"
               [options]="grades"
               optionLabel="description"
               optionValue="gradeName"
+              [ngClass]="{
+                'ng-dirty ng-invalid':
+                  !studentForm.controls['grade'].valid &&
+                  studentForm.controls['grade'].touched
+              }"
             ></p-dropdown>
+            <p-message
+              *ngIf="
+                !studentForm.controls['grade'].valid &&
+                studentForm.controls['grade'].touched
+              "
+              severity="error"
+              text="Field is required"
+              class="ml-2"
+            ></p-message>
           </div>
           <div class="flex align-items-center mb-4">
             <label for="teacher">Teacher</label>
@@ -97,7 +140,21 @@
               formControlName="phone"
               mask="999-999-9999"
               placeholder="999-999-9999"
+              [ngClass]="{
+                'ng-dirty ng-invalid':
+                  !studentForm.controls['phone'].valid &&
+                  studentForm.controls['phone'].touched
+              }"
             ></p-inputMask>
+            <p-message
+              *ngIf="
+                !studentForm.controls['phone'].valid &&
+                studentForm.controls['phone'].touched
+              "
+              severity="error"
+              text="Invalid phone #."
+              class="ml-2"
+            ></p-message>
           </div>
           <div class="flex align-items-center mb-3">
             <label for="email">Parent Email</label>
@@ -108,7 +165,21 @@
               id="email"
               pInputText
               class="p-inputtext p-component"
+              [ngClass]="{
+                'ng-dirty ng-invalid':
+                  !studentForm.controls['email'].valid &&
+                  studentForm.controls['email'].touched
+              }"
             />
+            <p-message
+              *ngIf="
+                !studentForm.controls['email'].valid &&
+                studentForm.controls['email'].touched
+              "
+              severity="error"
+              text="Invalid email addr."
+              class="ml-2"
+            ></p-message>
           </div>
         </div>
       </section>
@@ -121,6 +192,7 @@
         label="Save"
         icon="pi pi-check"
         class="mx-4"
+        [disabled]="studentForm.invalid"
       ></button>
       <button
         type="button"
@@ -132,6 +204,7 @@
         (click)="onCancel()"
       ></button>
       <button
+        *ngIf="!hidden"
         type="button"
         pButton
         pRipple
