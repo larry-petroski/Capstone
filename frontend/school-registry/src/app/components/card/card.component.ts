@@ -1,4 +1,3 @@
-import { createHostListener } from '@angular/compiler/src/core';
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -30,8 +29,8 @@ export class CardComponent implements OnInit, OnDestroy {
   }
 
   openTeacherInfo(id: number) {
-    this.teachersSvc.getTeacherById(id).subscribe(teachers => {
-      this.teachersSvc.sendTeacher([ teachers ]);
+    this.teachersSvc.getTeacherById(id).subscribe((teachers) => {
+      this.teachersSvc.sendTeacher([teachers]);
     });
   }
 

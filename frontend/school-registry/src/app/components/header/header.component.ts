@@ -21,32 +21,46 @@ export class HeaderComponent implements OnInit {
   filteredTeachers!: Teacher[];
   searchText!: string;
 
-  constructor(private gradesSvc: GradesService, private teachersSvc: TeachersService, private router: Router) {}
+  constructor(
+    private gradesSvc: GradesService,
+    private teachersSvc: TeachersService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.gradesSvc.getGrades<Grade[]>().subscribe(
-      (grades) => {this.grades = grades; this.setMenuItems()},
+      (grades) => {
+        this.grades = grades;
+        this.setMenuItems();
+      },
       (err) => console.error(err.message)
-      );
-    }
-    
-    setMenuItems(): void {
-      this.items = [];
-      this.grades.forEach((grade) => {
-      let item: MenuItem = { label: grade.gradeName, routerLink: ['teachers', grade.gradeId] };
+    );
+  }
+
+  setMenuItems(): void {
+    this.items = [];
+    this.grades.forEach((grade) => {
+      let item: MenuItem = {
+        label: grade.gradeName,
+        routerLink: ['teachers', grade.gradeId],
+      };
       this.items.push(item);
     });
 
-    this.teachersSvc.getAllTeachers().subscribe(teachers => this.teachers = teachers);
+    this.teachersSvc
+      .getAllTeachers()
+      .subscribe((teachers) => (this.teachers = teachers));
   }
 
   search(event: any) {
-    this.filteredTeachers = this.teachers.filter(teacher => teacher.teacherName.toLowerCase().includes(event.query.toLowerCase()));
+    this.filteredTeachers = this.teachers.filter((teacher) =>
+      teacher.teacherName.toLowerCase().includes(event.query.toLowerCase())
+    );
   }
 
   onSelect(value: any) {
     let teacher: Teacher = value;
-    let grade = this.grades.find(g => g.gradeName === teacher.gradeName);
+    let grade = this.grades.find((g) => g.gradeName === teacher.gradeName);
 
     this.router.navigate(['/teachers', grade?.gradeId]);
     this.filteredTeachers = [];

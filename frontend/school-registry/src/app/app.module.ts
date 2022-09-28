@@ -37,7 +37,7 @@ import { StudentInfoComponent } from './student-info/student-info.component';
     CardComponent,
     TeacherComponent,
     StudentListComponent,
-    StudentInfoComponent
+    StudentInfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,9 +58,9 @@ import { StudentInfoComponent } from './student-info/student-info.component';
     InputNumberModule,
     InputMaskModule,
     ToastModule,
-    TableModule
+    TableModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

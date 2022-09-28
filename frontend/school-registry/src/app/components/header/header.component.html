@@ -21,12 +21,14 @@
             (onSelect)="onSelect($event)"
             minlength="1"
           >
-          <ng-template let-teacher pTemplate="item">
-            <div>
-              <span>{{teacher.teacherName}}</span> - {{teacher.gradeName}} <span *ngIf="!teacher.gradeName.includes('K')">Grade</span>
-            </div>
-          </ng-template>
-        </p-autoComplete>
+            <ng-template let-teacher pTemplate="item">
+              <div>
+                <span>{{ teacher.teacherName }}</span> -
+                {{ teacher.gradeName }}
+                <span *ngIf="!teacher.gradeName.includes('K')">Grade</span>
+              </div>
+            </ng-template>
+          </p-autoComplete>
         </div>
       </div>
       <div>

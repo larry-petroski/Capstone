@@ -43,7 +43,11 @@ export class TeachersService {
   }
 
   updateTeacher(teacher: Teacher): Observable<Teacher> {
-    return this.http.put<Teacher>(this.teachersUrl, teacher, this.jsonContentTypeHeaders);
+    return this.http.put<Teacher>(
+      this.teachersUrl,
+      teacher,
+      this.jsonContentTypeHeaders
+    );
   }
 
   deleteTeacher(id: number) {

@@ -6,8 +6,16 @@
 <ng-template #showStudents>
   <div class="flex justify-content-center">
     <p-panel header="{{ teacherName }}'s Class" styleClass="datatable-striped">
-      <p-table [value]="students" [scrollable]="true" scrollHeight="400px" responsiveLayout="scroll" selectionMode="single" [(selection)]="selectedStudent"
-      dataKey="studentId" (onRowSelect)="onRowSelect($event)">
+      <p-table
+        [value]="students"
+        [scrollable]="true"
+        scrollHeight="400px"
+        responsiveLayout="scroll"
+        selectionMode="single"
+        [(selection)]="selectedStudent"
+        dataKey="studentId"
+        (onRowSelect)="onRowSelect($event)"
+      >
         <ng-template pTemplate="header">
           <tr>
             <th style="min-width: 200px"></th>

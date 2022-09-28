@@ -6,30 +6,31 @@ import { TeachersService } from '../services/teachers.service';
 @Component({
   selector: 'sr-teachers-list',
   templateUrl: './teachers-list.component.html',
-  styleUrls: ['./teachers-list.component.css']
+  styleUrls: ['./teachers-list.component.css'],
 })
 export class TeachersListComponent implements OnInit {
-
-  constructor(private route: ActivatedRoute, private teachersSvc: TeachersService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private teachersSvc: TeachersService
+  ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(param => {
+    this.route.paramMap.subscribe((param) => {
       const id = param.get('id');
 
       if (id && id.length === 1) {
         this.teachersSvc.getTeachersByGrade(id).subscribe({
           next: (teachers) => this.teachersSvc.sendTeacher(teachers),
-          error: err => console.error(err.message),
-          complete: () => {}
+          error: (err) => console.error(err.message),
+          complete: () => {},
         });
       } else {
         this.teachersSvc.getAllTeachers().subscribe({
           next: (teachers) => this.teachersSvc.sendTeacher(teachers),
-          error: err => console.error(err.message),
-          complete: () => {}
+          error: (err) => console.error(err.message),
+          complete: () => {},
         });
       }
     });
   }
-
 }

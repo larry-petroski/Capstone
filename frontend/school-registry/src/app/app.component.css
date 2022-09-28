@@ -1,17 +1,17 @@
 #container {
-    display: flex;
-    flex-direction: column;
-    height: 97vh;
+  display: flex;
+  flex-direction: column;
+  height: 97vh;
 }
 
 header {
-    height: 100px;
+  height: 100px;
 }
 
 main {
-    flex: 1 0 auto;
+  flex: 1 0 auto;
 }
 
 footer {
-    height: 25px;
+  height: 25px;
 }
