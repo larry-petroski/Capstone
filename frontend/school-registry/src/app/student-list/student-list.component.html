@@ -1,13 +1,30 @@
 <div *ngIf="students.length === 0; else showStudents">
-  <h2 class="text-center">
-    There are no students in {{ teacherName }}'s class.
-  </h2>
+  <div class="flex flex-column align-items-center gap-8">
+    <h2>There are no students in {{ teacherName }}'s class.</h2>
+    <button
+      pButton
+      pRipple
+      type="button"
+      icon="pi pi-arrow-left"
+      label="Back"
+      class="p-button-raised p-button-rounded p-button-secondary"
+      (click)="onBack()"
+    ></button>
+  </div>
 </div>
 <ng-template #showStudents>
   <div class="flex justify-content-center">
     <p-panel header="{{ teacherName }}'s Class" styleClass="datatable-striped">
-      <p-table [value]="students" [scrollable]="true" scrollHeight="400px" responsiveLayout="scroll" selectionMode="single" [(selection)]="selectedStudent"
-      dataKey="studentId" (onRowSelect)="onRowSelect($event)">
+      <p-table
+        [value]="students"
+        [scrollable]="true"
+        scrollHeight="400px"
+        responsiveLayout="scroll"
+        selectionMode="single"
+        [(selection)]="selectedStudent"
+        dataKey="studentId"
+        (onRowSelect)="onRowSelect($event)"
+      >
         <ng-template pTemplate="header">
           <tr>
             <th style="min-width: 200px"></th>
@@ -44,6 +61,15 @@
       label="Register a Student"
       class="p-button-raised p-button-rounded"
       [routerLink]="['/student-info']"
+    ></button>
+    <button
+      pButton
+      pRipple
+      type="button"
+      icon="pi pi-arrow-left"
+      label="Back"
+      class="p-button-raised p-button-rounded p-button-secondary"
+      (click)="onBack()"
     ></button>
   </div>
 </ng-template>

@@ -1,6 +1,6 @@
 export interface Student {
-    studentId: number;
-    studentEmail: string;
-    studentName: string;
-    studentPhone: string;
+  studentId: number;
+  studentEmail: string;
+  studentName: string;
+  studentPhone: string;
 }

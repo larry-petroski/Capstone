@@ -1,9 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
+import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
-import { concat, concatMap } from 'rxjs/operators';
+import { concatMap } from 'rxjs/operators';
+
+import { MessageService } from 'primeng/api';
 
 import { Grade } from '../models/grade.model';
 import { Student } from '../models/student.model';
@@ -11,7 +13,6 @@ import { Teacher } from '../models/teacher.model';
 import { GradesService } from '../services/grades.service';
 import { StudentsService } from '../services/students.service';
 import { TeachersService } from '../services/teachers.service';
-import { TeachersListComponent } from '../teachers-list/teachers-list.component';
 
 @Component({
   selector: 'sr-student-info',
@@ -39,7 +40,8 @@ export class StudentInfoComponent implements OnInit, OnDestroy {
     private gradesSvc: GradesService,
     private teachersSvc: TeachersService,
     private studentsSvc: StudentsService,
-    private msgSvc: MessageService
+    private msgSvc: MessageService,
+    private title: Title
   ) {
     this.route.paramMap.subscribe((pm) => {
       const teacherId = pm.get('teacherid');
@@ -64,6 +66,9 @@ export class StudentInfoComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    const pageTitle = this.title.getTitle();
+    this.title.setTitle(`${pageTitle} - Student Info`);
+    
     this.studentForm = this.fb.group({
       avatar: [null],
       firstName: [null, Validators.required],
@@ -106,11 +111,11 @@ export class StudentInfoComponent implements OnInit, OnDestroy {
       this.currentGrade = event;
     }
 
-    let teacher = this.teachers.find(t => t.teacherId === this.teacherId);
+    let teacher = this.teachers.find((t) => t.teacherId === this.teacherId);
 
     if (this.currentGrade.gradeName !== teacher?.gradeName) {
       this.studentForm.patchValue({
-        teacher: null
+        teacher: null,
       });
       this.changedGrade = true;
     }
@@ -127,11 +132,26 @@ export class StudentInfoComponent implements OnInit, OnDestroy {
         studentEmail: formValues['email'],
       };
 
-      this.studentsSvc
-        .addStudent(teacher.teacherId, student)
-        .subscribe((res) =>
-          this.router.navigate(['/students', teacher.teacherId])
-        );
+      this.studentsSvc.addStudent(teacher.teacherId, student).subscribe({
+        next: () => {
+          let name = teacher.teacherName.split(' ');
+          this.createToastMessage(
+            'success',
+            'Success!',
+            `${student.studentName} has been assigned to ${name[0]} ${name[2]}\'s class`,
+            false
+          );
+        },
+        error: (err) => {
+          this.createToastMessage(
+            'error',
+            'Error',
+            'Unknown error has occurred! Please try again later.',
+            true
+          );
+          console.error(err.message);
+        },
+      });
     } else if (this.changedGrade) {
       let teacher = this.getRandomTeacherByGrade();
 
@@ -139,31 +159,87 @@ export class StudentInfoComponent implements OnInit, OnDestroy {
         studentId: this.student.studentId,
         studentName: `${formValues['firstName']} ${formValues['lastName']}`,
         studentPhone: formValues['phone'],
-        studentEmail: formValues['email']
-      }
+        studentEmail: formValues['email'],
+      };
 
-      const addStudent = this.studentsSvc.addStudent(teacher.teacherId, student);
-      const deleteStudent = addStudent.pipe(concatMap(teacher => this.studentsSvc.deleteStudent(this.teacherId, this.studentId)));
-      deleteStudent.subscribe(() => this.router.navigate(['/students', teacher.teacherId]));
+      const addStudent = this.studentsSvc.addStudent(
+        teacher.teacherId,
+        student
+      );
+      const deleteStudent = addStudent.pipe(
+        concatMap((teacher) =>
+          this.studentsSvc.deleteStudent(this.teacherId, this.studentId)
+        )
+      );
+      deleteStudent.subscribe({
+        next: () => {
+          let name = teacher.teacherName.split(' ');
+          this.createToastMessage(
+            'success',
+            'Success!',
+            `${student.studentName} has been switched to ${name[0]} ${name[2]}'s class.`,
+            false
+          );
+        },
+        error: (err) => {
+          this.createToastMessage(
+            'error',
+            'Error',
+            'Unknown error has occurred. Please try again later.',
+            true
+          );
+          console.log(err.message);
+        },
+      });
     } else {
       const student = {
         studentId: this.student.studentId,
         studentName: `${formValues['firstName']} ${formValues['lastName']}`,
         studentPhone: formValues['phone'],
-        studentEmail: formValues['email']
-      }
+        studentEmail: formValues['email'],
+      };
 
       this.studentsSvc.updateStudent(this.teacherId, student).subscribe({
-        next: () => this.router.navigate(['/students', this.teacherId]),
-        error: err => console.error(err.message),
-        complete: () => {}
+        next: () => {
+          this.createToastMessage(
+            'success',
+            'Success!',
+            `${student.studentName} has been updated.`,
+            false
+          );
+        },
+        error: (err) => {
+          this.createToastMessage(
+            'error',
+            'Error',
+            'Unknown error has occurred. Please try again later.',
+            true
+          );
+          console.log(err.message);
+        },
       });
     }
   }
-  
+
+  createToastMessage(
+    severity: string,
+    summary: string,
+    detail: string,
+    isError: boolean
+  ): void {
+    this.msgSvc.add({ severity, summary, detail });
+
+    if (!isError) {
+      setTimeout(() => {
+        this.router.navigate(['/students', this.teacherId]);
+      }, 1000);
+    }
+  }
+
   getRandomTeacherByGrade() {
     let teachersByGrade = this.teachers.filter(
-      (teachers) => teachers.gradeName === this.studentForm.controls['grade'].value
+      (teachers) =>
+        teachers.gradeName === this.studentForm.controls['grade'].value
     );
 
     if (teachersByGrade.length > 1) {
@@ -199,9 +275,23 @@ export class StudentInfoComponent implements OnInit, OnDestroy {
 
   onDelete() {
     this.studentsSvc.deleteStudent(this.teacherId, this.studentId).subscribe({
-      next: () => this.router.navigate(['/students', this.teacherId]),
-      error: (err) => console.error(err.message),
-      complete: () => {},
+      next: () => {
+        this.createToastMessage(
+          'success',
+          'Success!',
+          `${this.student.studentName} has been removed.`,
+          false
+        );
+      },
+      error: (err) => {
+        this.createToastMessage(
+          'error',
+          'Error',
+          'Unknown error has occurred. Please try again later.',
+          true
+        );
+        console.log(err.message);
+      },
     });
   }
 
@@ -209,11 +299,3 @@ export class StudentInfoComponent implements OnInit, OnDestroy {
     this.gradesSub.unsubscribe();
   }
 }
-function mergeMap(): import("rxjs").OperatorFunction<Student, unknown> {
-  throw new Error('Function not implemented.');
-}
-
-function switchMap(arg0: (res: any) => import("rxjs").Observable<Object>): import("rxjs").OperatorFunction<Student, unknown> {
-  throw new Error('Function not implemented.');
-}
-

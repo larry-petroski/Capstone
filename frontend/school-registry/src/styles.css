@@ -1,18 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 body::after {
-    content: '';
-    background: url(./assets/images/Background.svg) center no-repeat;
-    background-size: cover;
-    opacity: 0.35;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: -1;
+  content: "";
+  background: url(./assets/images/Background.svg) center no-repeat;
+  background-size: cover;
+  opacity: 0.35;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
 }

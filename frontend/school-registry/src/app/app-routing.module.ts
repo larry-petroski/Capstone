@@ -9,17 +9,30 @@ import { TeachersListComponent } from './teachers-list/teachers-list.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'teachers', component: TeachersListComponent },
-  { path: 'teachers/:id', component: TeachersListComponent, pathMatch: 'full' },
-  { path: 'teachers/:teacherid/student-info/:id', component: StudentInfoComponent, pathMatch: 'full' },
+  {
+    path: 'teachers/:gradeid',
+    component: TeachersListComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'teachers/:teacherid',
+    component: TeachersListComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'teachers/:teacherid/student-info/:id',
+    component: StudentInfoComponent,
+    pathMatch: 'full',
+  },
   { path: 'teacher-info', component: TeacherComponent },
   { path: 'teacher-info/:id', component: TeacherComponent, pathMatch: 'full' },
   { path: 'students/:teacherId', component: StudentListComponent },
   { path: 'student-info', component: StudentInfoComponent },
-  { path: '**', component: HomeComponent }
+  { path: '**', component: HomeComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

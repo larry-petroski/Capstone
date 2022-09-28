@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
@@ -36,7 +37,8 @@ export class TeacherComponent implements OnInit, OnDestroy {
     private teachersSvc: TeachersService,
     private gradesSvc: GradesService,
     private msgSvc: MessageService,
-    private locSvc: Location
+    private locSvc: Location,
+    private title: Title
   ) {
     this.gradesSub = this.gradesSvc
       .getGrades<Grade[]>()
@@ -52,6 +54,9 @@ export class TeacherComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.browserRefresh = browserRefresh;
 
+    const pageTitle = this.title.getTitle();
+    this.title.setTitle(`${pageTitle} - Teacher Info`);
+
     this.teacherForm = this.fb.group({
       title: [this.titles[0], Validators.required],
       firstName: [null, Validators.required],
@@ -64,12 +69,10 @@ export class TeacherComponent implements OnInit, OnDestroy {
     });
 
     if (this.browserRefresh) {
-      this.teachersSvc
-        .getTeacherById(this.teacherId)
-        .subscribe((teacher) => {
-          this.teacher = teacher;
-          this.updateForm(teacher)
-        });
+      this.teachersSvc.getTeacherById(this.teacherId).subscribe((teacher) => {
+        this.teacher = teacher;
+        this.updateForm(teacher);
+      });
     } else {
       this.teacherSub = this.teachersSvc.teachers().subscribe((teacher) => {
         let t = teacher.find((teach) => teach.teacherId === this.teacherId);
@@ -110,38 +113,61 @@ export class TeacherComponent implements OnInit, OnDestroy {
       maxClassSize: formValues['classSize'],
     };
 
-    let grade = this.grades.find((g) => g.gradeName === teacher.gradeName);
-
     if (!this.updateExistingTeacher) {
       this.teachersSvc.addTeacher(teacher).subscribe({
-        next: () => {
-          this.router.navigate(['/teachers']);
-        },
+        next: () =>
+          this.createToastMsg(
+            'success',
+            'Success!',
+            `${teacher.teacherName} has been added as a teacher.`,
+            false
+          ),
         error: (err) => {
-          this.msgSvc.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Unknown error has occurred! Please try again later.',
-          });
+          this.createToastMsg(
+            'error',
+            'Error',
+            'Unknown error has occurred! Please try again later.',
+            true
+          );
           console.error(err.message);
         },
         complete: () => {},
       });
     } else {
       this.teachersSvc.updateTeacher(teacher).subscribe({
-        next: () => {
-          this.router.navigate(['/teachers']);
-        },
+        next: () =>
+          this.createToastMsg(
+            'success',
+            'Success!',
+            `${teacher.teacherName} has been updated.`,
+            false
+          ),
         error: (err) => {
-          this.msgSvc.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Unknown error has occurred! Please try again later.',
-          });
+          this.createToastMsg(
+            'error',
+            'Error',
+            'Unknown error has occurred! Please try again later.',
+            true
+          );
           console.error(err.message);
         },
         complete: () => {},
       });
+    }
+  }
+
+  createToastMsg(
+    severity: string,
+    summary: string,
+    detail: string,
+    isError: boolean
+  ): void {
+    this.msgSvc.add({ severity, summary, detail });
+
+    if (!isError) {
+      setTimeout(() => {
+        this.router.navigate(['/teachers']);
+      }, 1500);
     }
   }
 
@@ -166,8 +192,22 @@ export class TeacherComponent implements OnInit, OnDestroy {
 
   onDelete() {
     this.teachersSvc.deleteTeacher(this.teacherId).subscribe({
-      next: () => this.router.navigate(['/teachers']),
-      error: (err) => console.error(err.message),
+      next: () =>
+        this.createToastMsg(
+          'success',
+          'Success!',
+          `${this.teacher.teacherName} has been removed.`,
+          false
+        ),
+      error: (err) => {
+        this.createToastMsg(
+          'error',
+          'Error',
+          'Unknown error has occurred! Please try again later.',
+          true
+        );
+        console.error(err.message);
+      },
       complete: () => {},
     });
   }

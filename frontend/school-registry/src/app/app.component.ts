@@ -7,14 +7,13 @@ export let browserRefresh = false;
 @Component({
   selector: 'sr-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnDestroy {
-
   subscription!: Subscription;
 
   constructor(private router: Router) {
-    this.subscription = router.events.subscribe(event => {
+    this.subscription = router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         browserRefresh = !router.navigated;
       }
@@ -22,6 +21,6 @@ export class AppComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-      this.subscription.unsubscribe();
+    this.subscription.unsubscribe();
   }
 }

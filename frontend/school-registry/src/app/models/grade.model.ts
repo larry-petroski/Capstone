@@ -1,5 +1,5 @@
 export interface Grade {
-    gradeName: string;
-    gradeId: string;
-    description: string;
+  gradeName: string;
+  gradeId: string;
+  description: string;
 }

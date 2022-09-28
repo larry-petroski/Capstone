@@ -1,17 +1,17 @@
 .headings {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1.5em;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5em;
 }
 
 section > p {
-    text-align: center;
-    width: 50vw;
-    font-size: 1.25em;
-    line-height: 1.5em;
-    margin: 0 auto 1.25em auto;
+  text-align: center;
+  width: 50vw;
+  font-size: 1.25em;
+  line-height: 1.5em;
+  margin: 0 auto 1.25em auto;
 }
 
 .registerBtn {
-    text-align: center;
+  text-align: center;
 }

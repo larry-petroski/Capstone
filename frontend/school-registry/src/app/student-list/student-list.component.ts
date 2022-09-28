@@ -1,4 +1,6 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Student } from '../models/student.model';
@@ -20,7 +22,9 @@ export class StudentListComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private teachersSvc: TeachersService
+    private teachersSvc: TeachersService,
+    private locSvc: Location,
+    private title: Title
   ) {
     this.route.paramMap.subscribe((pm) => {
       const id = pm.get('teacherId');
@@ -31,13 +35,16 @@ export class StudentListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      this.teachersSvc.getTeacherById(this.teacherId).subscribe({
-        next: (resp) => {
-          this.setStudents(resp);
-        },
-        error: (err) => console.error(err.message),
-        complete: () => {},
-      });
+    const pageTitle = this.title.getTitle();
+    this.title.setTitle(`${pageTitle} - Students`);
+    
+    this.teachersSvc.getTeacherById(this.teacherId).subscribe({
+      next: (resp) => {
+        this.setStudents(resp);
+      },
+      error: (err) => console.error(err.message),
+      complete: () => {},
+    });
   }
 
   setStudents(teacher: Teacher) {
@@ -53,6 +60,15 @@ export class StudentListComponent implements OnInit {
 
   onRowSelect(event: any) {
     let student: Student = event.data;
-    this.router.navigate(['/teachers', this.teacherId, 'student-info', student.studentId]);
+    this.router.navigate([
+      '/teachers',
+      this.teacherId,
+      'student-info',
+      student.studentId,
+    ]);
+  }
+
+  onBack() {
+    this.locSvc.back();
   }
 }
