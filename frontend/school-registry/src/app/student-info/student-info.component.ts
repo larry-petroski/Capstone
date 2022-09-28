@@ -32,6 +32,7 @@ export class StudentInfoComponent implements OnInit, OnDestroy {
   currentGrade!: Grade;
   previousGrade!: Grade;
   changedGrade: boolean = false;
+  hidden: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -68,15 +69,21 @@ export class StudentInfoComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     const pageTitle = this.title.getTitle();
     this.title.setTitle(`${pageTitle} - Student Info`);
-    
+
     this.studentForm = this.fb.group({
       avatar: [null],
       firstName: [null, Validators.required],
       lastName: [null, Validators.required],
       grade: [null, Validators.required],
       teacher: [{ value: null, disabled: true }],
-      phone: [null, Validators.required],
-      email: [null, Validators.required],
+      phone: [
+        null,
+        [Validators.compose([Validators.required, Validators.minLength(10)])],
+      ],
+      email: [
+        null,
+        [Validators.compose([Validators.required, Validators.email])],
+      ],
     });
 
     if (this.teacherId && this.studentId) {

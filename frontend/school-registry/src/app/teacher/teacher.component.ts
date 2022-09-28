@@ -27,6 +27,7 @@ export class TeacherComponent implements OnInit, OnDestroy {
   teacherSub!: Subscription;
   teacher!: Teacher;
   updateExistingTeacher: boolean = false;
+  hidden: boolean = true;
 
   titles: string[] = ['Mr.', 'Mrs.', 'Ms.'];
 
@@ -58,11 +59,11 @@ export class TeacherComponent implements OnInit, OnDestroy {
     this.title.setTitle(`${pageTitle} - Teacher Info`);
 
     this.teacherForm = this.fb.group({
-      title: [this.titles[0], Validators.required],
+      title: [null, Validators.required],
       firstName: [null, Validators.required],
       lastName: [null, Validators.required],
-      phone: [null, Validators.required],
-      email: [null, Validators.required],
+      phone: [null, [Validators.compose([Validators.required, Validators.minLength(10)])]],
+      email: [null, [Validators.compose([Validators.required, Validators.email])]],
       grade: [null, Validators.required],
       classSize: [0, Validators.required],
       avatar: [null],

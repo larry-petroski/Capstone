@@ -30,23 +30,40 @@
 </p-toast>
 <p-panel header="Teacher Info" [style]="{ width: '65vw', margin: '0 auto' }">
   <form [formGroup]="teacherForm" (ngSubmit)="onSubmit(teacherForm.value)">
-    <div class="flex justify-content-around">
+    <div class="flex justify-content-center">
       <section class="w-5">
-        <div class="flex align-items-center justify-content-evenly">
+        <div class="flex">
           <p-avatar icon="pi pi-user" size="xlarge" shape="circle"></p-avatar>
           <button
             pButton
             pRipple
-            class="p-button-raised p-button-rounded"
+            class="ml-5 p-button-raised p-button-rounded"
             icon="pi pi-plus"
             label="Upload Image"
           ></button>
         </div>
-
-        <div class="flex flex-column align-items-center mt-5">
+        <div class="flex flex-column mt-5">
           <div class="flex align-items-center mb-3">
             <label for="title">Title</label>
-            <p-dropdown formControlName="title" [options]="titles"></p-dropdown>
+            <p-dropdown
+              formControlName="title"
+              placeholder="Select Option"
+              [options]="titles"
+              [ngClass]="{
+                'ng-dirty ng-invalid':
+                  !teacherForm.controls['title'].valid &&
+                  teacherForm.controls['title'].touched
+              }"
+            ></p-dropdown>
+            <p-message
+              *ngIf="
+                !teacherForm.controls['title'].valid &&
+                teacherForm.controls['title'].touched
+              "
+              severity="error"
+              text="Field is required"
+              class="ml-2"
+            ></p-message>
           </div>
           <div class="flex align-items-center mb-3">
             <label for="firstName">First Name</label>
@@ -57,7 +74,21 @@
               name="firstName"
               id="firstName"
               class="p-inputtext p-component"
+              [ngClass]="{
+                'ng-dirty ng-invalid':
+                  !teacherForm.controls['firstName'].valid &&
+                  teacherForm.controls['firstName'].touched
+              }"
             />
+            <p-message
+              *ngIf="
+                !teacherForm.controls['firstName'].valid &&
+                teacherForm.controls['firstName'].touched
+              "
+              severity="error"
+              text="Field is required."
+              class="ml-2"
+            ></p-message>
           </div>
           <div class="flex align-items-center">
             <label for="LastName">Last Name</label>
@@ -68,20 +99,40 @@
               name="LastName"
               id="LastName"
               class="p-inputtext p-component"
+              [ngClass]="{
+                'ng-dirty ng-invalid':
+                  !teacherForm.controls['lastName'].valid &&
+                  teacherForm.controls['lastName'].touched
+              }"
             />
           </div>
         </div>
       </section>
       <section class="w-5">
-        <div class="flex flex-column align-items-center">
+        <div class="flex flex-column">
           <div class="flex align-items-center mb-2">
             <label for="grade">Grade</label>
             <p-dropdown
               formControlName="grade"
+              placeholder="Select Grade"
               [options]="grades"
               optionLabel="description"
               optionValue="gradeName"
+              [ngClass]="{
+                'ng-dirty ng-invalid':
+                  !teacherForm.controls['grade'].valid &&
+                  teacherForm.controls['grade'].touched
+              }"
             ></p-dropdown>
+            <p-message
+              *ngIf="
+                !teacherForm.controls['grade'].valid &&
+                teacherForm.controls['grade'].touched
+              "
+              severity="error"
+              text="Field is required"
+              class="ml-2"
+            ></p-message>
           </div>
           <div class="flex align-items-center mb-7">
             <label for="classSize">Class Size</label>
@@ -92,7 +143,12 @@
               [showButtons]="true"
               inputId="classSize"
               [min]="0"
-              [max]="12"
+              [max]="15"
+              [ngClass]="{
+                'ng-dirty ng-invalid':
+                  !teacherForm.controls['classSize'].valid &&
+                  teacherForm.controls['classSize'].touched
+              }"
             ></p-inputNumber>
           </div>
           <div class="flex align-items-center mb-3">
@@ -101,7 +157,21 @@
               formControlName="phone"
               mask="999-999-9999"
               placeholder="999-999-9999"
+              [ngClass]="{
+                'ng-dirty ng-invalid':
+                  !teacherForm.controls['phone'].valid &&
+                  teacherForm.controls['phone'].touched
+              }"
             ></p-inputMask>
+            <p-message
+              *ngIf="
+                !teacherForm.controls['phone'].valid &&
+                teacherForm.controls['phone'].touched
+              "
+              severity="error"
+              text="Invalid phone #."
+              class="ml-2"
+            ></p-message>
           </div>
           <div class="flex align-items-center mb-3">
             <label for="email">Email</label>
@@ -112,7 +182,21 @@
               name="email"
               id="email"
               class="p-inputtext p-component"
+              [ngClass]="{
+                'ng-dirty ng-invalid':
+                  !teacherForm.controls['email'].valid &&
+                  teacherForm.controls['email'].touched
+              }"
             />
+            <p-message
+              *ngIf="
+                !teacherForm.controls['email'].valid &&
+                teacherForm.controls['email'].touched
+              "
+              severity="error"
+              text="Invalid email addr."
+              class="ml-2"
+            ></p-message>
           </div>
         </div>
       </section>
@@ -125,6 +209,7 @@
         label="Save"
         icon="pi pi-check"
         class="mx-4"
+        [disabled]="teacherForm.invalid"
       ></button>
       <button
         type="button"
@@ -138,6 +223,7 @@
       <button
         type="button"
         [disabled]="!teacherId"
+        *ngIf="!hidden"
         pButton
         pRipple
         label="Delete"
