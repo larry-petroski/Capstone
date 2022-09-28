@@ -60,9 +60,8 @@ export class HeaderComponent implements OnInit {
 
   onSelect(value: any) {
     let teacher: Teacher = value;
-    let grade = this.grades.find((g) => g.gradeName === teacher.gradeName);
 
-    this.router.navigate(['/teachers', grade?.gradeId]);
+    this.router.navigate(['/teachers', { teacherid: teacher.teacherId }]);
     this.filteredTeachers = [];
     this.searchText = '';
   }

@@ -33,7 +33,7 @@
         type="button"
         class="p-button-raised p-button-rounded"
         *ngFor="let grade of grades"
-        [routerLink]="['/teachers', grade.gradeId]"
+        [routerLink]="['/teachers', { gradeid: grade.gradeId }]"
       >
         {{ grade.description }}
       </button>

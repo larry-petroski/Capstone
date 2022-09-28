@@ -9,7 +9,16 @@ import { TeachersListComponent } from './teachers-list/teachers-list.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'teachers', component: TeachersListComponent },
-  { path: 'teachers/:id', component: TeachersListComponent, pathMatch: 'full' },
+  {
+    path: 'teachers/:gradeid',
+    component: TeachersListComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'teachers/:teacherid',
+    component: TeachersListComponent,
+    pathMatch: 'full',
+  },
   {
     path: 'teachers/:teacherid/student-info/:id',
     component: StudentInfoComponent,

@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
 
@@ -39,7 +40,8 @@ export class StudentInfoComponent implements OnInit, OnDestroy {
     private gradesSvc: GradesService,
     private teachersSvc: TeachersService,
     private studentsSvc: StudentsService,
-    private msgSvc: MessageService
+    private msgSvc: MessageService,
+    private title: Title
   ) {
     this.route.paramMap.subscribe((pm) => {
       const teacherId = pm.get('teacherid');
@@ -64,6 +66,9 @@ export class StudentInfoComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    const pageTitle = this.title.getTitle();
+    this.title.setTitle(`${pageTitle} - Student Info`);
+    
     this.studentForm = this.fb.group({
       avatar: [null],
       firstName: [null, Validators.required],

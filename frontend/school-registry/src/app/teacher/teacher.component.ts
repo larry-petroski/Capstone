@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
@@ -36,7 +37,8 @@ export class TeacherComponent implements OnInit, OnDestroy {
     private teachersSvc: TeachersService,
     private gradesSvc: GradesService,
     private msgSvc: MessageService,
-    private locSvc: Location
+    private locSvc: Location,
+    private title: Title
   ) {
     this.gradesSub = this.gradesSvc
       .getGrades<Grade[]>()
@@ -51,6 +53,9 @@ export class TeacherComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.browserRefresh = browserRefresh;
+
+    const pageTitle = this.title.getTitle();
+    this.title.setTitle(`${pageTitle} - Teacher Info`);
 
     this.teacherForm = this.fb.group({
       title: [this.titles[0], Validators.required],
