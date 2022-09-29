@@ -249,3 +249,7 @@ a list of several credentials or you could use:
 Username  | Password
 --------- | --------
 gamer04   | gamer04!
+
+## Additional Info
+Users will not be able to click on the 'upload image' buttons on the teacher/student forms. Given more time I would have liked to implement
+this feature.
