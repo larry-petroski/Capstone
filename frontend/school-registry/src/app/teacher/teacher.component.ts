@@ -172,7 +172,7 @@ export class TeacherComponent implements OnInit, OnDestroy {
     if (!isError) {
       setTimeout(() => {
         this.router.navigate(['/teachers']);
-      }, 1500);
+      }, 3000);
     }
   }
 

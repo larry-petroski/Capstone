@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 
 import { TeachersService } from '../services/teachers.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'sr-teachers-list',
@@ -10,15 +11,20 @@ import { TeachersService } from '../services/teachers.service';
   styleUrls: ['./teachers-list.component.css'],
 })
 export class TeachersListComponent implements OnInit {
+  hidden: boolean = true;
+
   constructor(
     private route: ActivatedRoute,
     private teachersSvc: TeachersService,
-    private title: Title
+    private title: Title,
+    private usersSvc: UserService
   ) {}
 
   ngOnInit(): void {
     const pageTitle = this.title.getTitle();
     this.title.setTitle(`${pageTitle} - Teachers`);
+
+    this.usersSvc.admin.subscribe(user => this.hidden = !!user.username)
 
     this.route.paramMap.subscribe((param) => {
       const gradeid = param.get('gradeid');

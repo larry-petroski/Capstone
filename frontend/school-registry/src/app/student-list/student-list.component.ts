@@ -1,4 +1,3 @@
-import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -23,7 +22,6 @@ export class StudentListComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private teachersSvc: TeachersService,
-    private locSvc: Location,
     private title: Title
   ) {
     this.route.paramMap.subscribe((pm) => {
@@ -66,9 +64,5 @@ export class StudentListComponent implements OnInit {
       'student-info',
       student.studentId,
     ]);
-  }
-
-  onBack() {
-    this.locSvc.back();
   }
 }

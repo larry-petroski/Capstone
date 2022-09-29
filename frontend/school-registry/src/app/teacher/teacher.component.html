@@ -105,6 +105,15 @@
                   teacherForm.controls['lastName'].touched
               }"
             />
+            <p-message
+              *ngIf="
+                !teacherForm.controls['lastName'].valid &&
+                teacherForm.controls['lastName'].touched
+              "
+              severity="error"
+              text="Field is required."
+              class="ml-2"
+            ></p-message>
           </div>
         </div>
       </section>

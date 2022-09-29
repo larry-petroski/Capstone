@@ -136,7 +136,12 @@ export class StudentInfoComponent implements OnInit, OnDestroy {
   onSubmit(formValues: any) {
     if (!this.updateExistingStudent) {
       let teacher: Teacher = this.getRandomTeacherByGrade();
+      if (!teacher) {
+        this.msgSvc.add({ severity: 'error', summary: 'No Teacher Found', detail: 'Please get with school to create teacher for desired grade.'})
+      }
+      
       this.teacherId = teacher.teacherId;
+
 
       const student: Student = {
         studentId: 0,
@@ -245,7 +250,7 @@ export class StudentInfoComponent implements OnInit, OnDestroy {
     if (!isError) {
       setTimeout(() => {
         this.router.navigate(['/students', this.teacherId]);
-      }, 1000);
+      }, 3000);
     }
   }
 
