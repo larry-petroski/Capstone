@@ -34,7 +34,7 @@
       </div>
       <div>
         <button
-        *ngIf="!currentAdmin.username; else loggedIn"
+          *ngIf="!currentAdmin.username; else loggedIn"
           pButton
           pRipple
           type="button"
@@ -46,7 +46,17 @@
     </div>
   </ng-template>
 </p-menubar>
-<sr-admin [showLoginDialog]="showLoginDialog" (closeDialog)="hideLogin()"></sr-admin>
+<sr-admin
+  [showLoginDialog]="showLoginDialog"
+  (closeDialog)="hideLogin()"
+></sr-admin>
 <ng-template #loggedIn>
-  <button pButton pRipple type="button" icon="pi pi-lock-open" class="mr-3 p-button-outlined p-button-rounded" (click)="logout()"></button>
+  <button
+    pButton
+    pRipple
+    type="button"
+    icon="pi pi-lock-open"
+    class="mr-3 p-button-outlined p-button-rounded"
+    (click)="logout()"
+  ></button>
 </ng-template>

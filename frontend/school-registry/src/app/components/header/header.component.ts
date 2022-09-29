@@ -50,7 +50,7 @@ export class HeaderComponent implements OnInit {
         console.error(err.message);
       }
     );
-    this.userSvc.admin.subscribe(user => this.currentAdmin = user);
+    this.userSvc.admin.subscribe((user) => (this.currentAdmin = user));
   }
 
   setMenuItems(): void {

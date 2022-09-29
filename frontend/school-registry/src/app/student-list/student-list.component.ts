@@ -35,7 +35,7 @@ export class StudentListComponent implements OnInit {
   ngOnInit(): void {
     const pageTitle = this.title.getTitle();
     this.title.setTitle(`${pageTitle} - Students`);
-    
+
     this.teachersSvc.getTeacherById(this.teacherId).subscribe({
       next: (resp) => {
         this.setStudents(resp);

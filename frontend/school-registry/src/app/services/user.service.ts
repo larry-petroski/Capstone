@@ -5,24 +5,24 @@ import { Observable, ReplaySubject } from 'rxjs';
 import { User } from '../models/user.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
   private user: User = {
     username: '',
     password: '',
     name: '',
-    id: 1
-  }
+    id: 1,
+  };
 
   admin: ReplaySubject<User> = new ReplaySubject<User>(1);
-  
+
   private loginUrl: string = 'http://localhost:8085/api/login';
 
   jsonContentTypeHeaders = {
     headers: new HttpHeaders().set('Content-Type', 'application/json'),
   };
-  
+
   constructor(private http: HttpClient) {
     if (localStorage.getItem('user')) {
       const user = JSON.parse(localStorage.getItem('user')!);

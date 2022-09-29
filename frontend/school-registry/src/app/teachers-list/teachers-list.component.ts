@@ -24,7 +24,7 @@ export class TeachersListComponent implements OnInit {
     const pageTitle = this.title.getTitle();
     this.title.setTitle(`${pageTitle} - Teachers`);
 
-    this.usersSvc.admin.subscribe(user => this.hidden = !!user.username)
+    this.usersSvc.admin.subscribe((user) => (this.hidden = !!user.username));
 
     this.route.paramMap.subscribe((param) => {
       const gradeid = param.get('gradeid');
