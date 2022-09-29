@@ -13,6 +13,8 @@ import { Teacher } from '../models/teacher.model';
 import { GradesService } from '../services/grades.service';
 import { StudentsService } from '../services/students.service';
 import { TeachersService } from '../services/teachers.service';
+import { UserService } from '../services/user.service';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'sr-student-info',
@@ -42,7 +44,8 @@ export class StudentInfoComponent implements OnInit, OnDestroy {
     private teachersSvc: TeachersService,
     private studentsSvc: StudentsService,
     private msgSvc: MessageService,
-    private title: Title
+    private title: Title,
+    private userSvc: UserService
   ) {
     this.route.paramMap.subscribe((pm) => {
       const teacherId = pm.get('teacherid');
@@ -64,6 +67,8 @@ export class StudentInfoComponent implements OnInit, OnDestroy {
       error: (err) => console.error(err.message),
       complete: () => {},
     });
+
+    this.userSvc.admin.subscribe(user => this.hidden = !user.username)
   }
 
   ngOnInit(): void {
@@ -131,6 +136,7 @@ export class StudentInfoComponent implements OnInit, OnDestroy {
   onSubmit(formValues: any) {
     if (!this.updateExistingStudent) {
       let teacher: Teacher = this.getRandomTeacherByGrade();
+      this.teacherId = teacher.teacherId;
 
       const student: Student = {
         studentId: 0,
@@ -157,7 +163,7 @@ export class StudentInfoComponent implements OnInit, OnDestroy {
             true
           );
           console.error(err.message);
-        },
+        }
       });
     } else if (this.changedGrade) {
       let teacher = this.getRandomTeacherByGrade();
