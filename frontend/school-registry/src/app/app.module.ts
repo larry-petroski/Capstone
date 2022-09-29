@@ -66,7 +66,7 @@ import { AdminComponent } from './admin/admin.component';
     TableModule,
     MessagesModule,
     MessageModule,
-    DialogModule
+    DialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -14,7 +14,6 @@ import { GradesService } from '../services/grades.service';
 import { StudentsService } from '../services/students.service';
 import { TeachersService } from '../services/teachers.service';
 import { UserService } from '../services/user.service';
-import { User } from '../models/user.model';
 
 @Component({
   selector: 'sr-student-info',
@@ -68,7 +67,7 @@ export class StudentInfoComponent implements OnInit, OnDestroy {
       complete: () => {},
     });
 
-    this.userSvc.admin.subscribe(user => this.hidden = !user.username)
+    this.userSvc.admin.subscribe((user) => (this.hidden = !user.username));
   }
 
   ngOnInit(): void {
@@ -136,6 +135,14 @@ export class StudentInfoComponent implements OnInit, OnDestroy {
   onSubmit(formValues: any) {
     if (!this.updateExistingStudent) {
       let teacher: Teacher = this.getRandomTeacherByGrade();
+      if (!teacher) {
+        this.msgSvc.add({
+          severity: 'error',
+          summary: 'No Teacher Found',
+          detail: 'Please get with school to create teacher for desired grade.',
+        });
+      }
+
       this.teacherId = teacher.teacherId;
 
       const student: Student = {
@@ -163,7 +170,7 @@ export class StudentInfoComponent implements OnInit, OnDestroy {
             true
           );
           console.error(err.message);
-        }
+        },
       });
     } else if (this.changedGrade) {
       let teacher = this.getRandomTeacherByGrade();
@@ -245,7 +252,7 @@ export class StudentInfoComponent implements OnInit, OnDestroy {
     if (!isError) {
       setTimeout(() => {
         this.router.navigate(['/students', this.teacherId]);
-      }, 1000);
+      }, 3000);
     }
   }
 

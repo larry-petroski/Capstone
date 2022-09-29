@@ -1,9 +1,8 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { catchError } from 'rxjs/operators';
 import { MessageService } from 'primeng/api';
-import { of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+
 import { UserService } from '../services/user.service';
 
 @Component({

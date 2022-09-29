@@ -64,8 +64,14 @@ export class TeacherComponent implements OnInit, OnDestroy {
       title: [null, Validators.required],
       firstName: [null, Validators.required],
       lastName: [null, Validators.required],
-      phone: [null, [Validators.compose([Validators.required, Validators.minLength(10)])]],
-      email: [null, [Validators.compose([Validators.required, Validators.email])]],
+      phone: [
+        null,
+        [Validators.compose([Validators.required, Validators.minLength(10)])],
+      ],
+      email: [
+        null,
+        [Validators.compose([Validators.required, Validators.email])],
+      ],
       grade: [null, Validators.required],
       classSize: [0, Validators.required],
       avatar: [null],
@@ -87,7 +93,7 @@ export class TeacherComponent implements OnInit, OnDestroy {
       });
     }
 
-    this.userSvc.admin.subscribe(user => this.hidden = !user.username);
+    this.userSvc.admin.subscribe((user) => (this.hidden = !user.username));
   }
 
   updateForm(teacher: Teacher) {
@@ -172,7 +178,7 @@ export class TeacherComponent implements OnInit, OnDestroy {
     if (!isError) {
       setTimeout(() => {
         this.router.navigate(['/teachers']);
-      }, 1500);
+      }, 3000);
     }
   }
 
