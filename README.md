@@ -238,6 +238,9 @@ Delete an existing student <br/>
 HTTPStatus 200 OK
 ___
 ## Screenshot
+<img src="screenshots/home.png" width=50% height=50%>
+<br/>
+<img src="screenshots/teachers-list.png" width=50% height=50%>
 
 ## Authentication
 In order to delete a student and/or teacher you'll have to be logged in as an admin. This is basic username/password logic 
