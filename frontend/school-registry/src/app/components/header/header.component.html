@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <p-menubar [model]="items">
   <ng-template pTemplate="start">
     <a routerLink="" class="flex">
@@ -33,32 +34,19 @@
       </div>
       <div>
         <button
+        *ngIf="!currentAdmin.username; else loggedIn"
           pButton
           pRipple
           type="button"
           icon="pi pi-lock"
           class="mr-3 p-button-raised p-button-rounded"
+          (click)="showLogin()"
         ></button>
       </div>
     </div>
-    <!-- <div class="flex w-auto justify-content-end">
-        <p-autoComplete
-          placeholder="teacher"
-          [(ngModel)]="searchText"
-          [suggestions]="filteredTeachers"
-          (completeMethod)="search($event)"
-          (onSelect)="onSelect($event)"
-          field="teacherName"
-          minlength="1"
-        ></p-autoComplete>
-        <span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
-      <button
-        pButton
-        pRipple
-        type="button"
-        icon="pi pi-lock"
-        class="mr-3 p-button-raised p-button-rounded"
-      ></button>
-    </div> -->
   </ng-template>
 </p-menubar>
+<sr-admin [showLoginDialog]="showLoginDialog" (closeDialog)="hideLogin()"></sr-admin>
+<ng-template #loggedIn>
+  <button pButton pRipple type="button" icon="pi pi-lock-open" class="mr-3 p-button-outlined p-button-rounded" (click)="logout()"></button>
+</ng-template>

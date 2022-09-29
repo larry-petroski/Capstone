@@ -17,8 +17,9 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputMaskModule } from 'primeng/inputmask';
 import { ToastModule } from 'primeng/toast';
 import { TableModule } from 'primeng/table';
-import {MessagesModule} from 'primeng/messages';
-import {MessageModule} from 'primeng/message';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { DialogModule } from 'primeng/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,6 +30,7 @@ import { CardComponent } from './components/card/card.component';
 import { TeacherComponent } from './teacher/teacher.component';
 import { StudentListComponent } from './student-list/student-list.component';
 import { StudentInfoComponent } from './student-info/student-info.component';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,7 @@ import { StudentInfoComponent } from './student-info/student-info.component';
     TeacherComponent,
     StudentListComponent,
     StudentInfoComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,7 +65,8 @@ import { StudentInfoComponent } from './student-info/student-info.component';
     ToastModule,
     TableModule,
     MessagesModule,
-    MessageModule
+    MessageModule,
+    DialogModule
   ],
   providers: [],
   bootstrap: [AppComponent],

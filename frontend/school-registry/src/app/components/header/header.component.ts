@@ -1,17 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 
 import { Grade } from '../../models/grade.model';
 import { GradesService } from '../../services/grades.service';
 import { TeachersService } from '../../services/teachers.service';
 import { Teacher } from '../../models/teacher.model';
+import { UserService } from '../../services/user.service';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'sr-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
+  providers: [MessageService],
 })
 export class HeaderComponent implements OnInit {
   items!: MenuItem[];
@@ -20,11 +23,15 @@ export class HeaderComponent implements OnInit {
   teachers!: Teacher[];
   filteredTeachers!: Teacher[];
   searchText!: string;
+  showLoginDialog: boolean = false;
+  currentAdmin!: User;
 
   constructor(
     private gradesSvc: GradesService,
     private teachersSvc: TeachersService,
-    private router: Router
+    private router: Router,
+    private msgSvc: MessageService,
+    private userSvc: UserService
   ) {}
 
   ngOnInit(): void {
@@ -33,8 +40,17 @@ export class HeaderComponent implements OnInit {
         this.grades = grades;
         this.setMenuItems();
       },
-      (err) => console.error(err.message)
+      (err) => {
+        this.msgSvc.add({
+          severity: 'error',
+          summary: 'No connection',
+          detail: 'Unable to connect with server. Please try again later.',
+          sticky: true,
+        });
+        console.error(err.message);
+      }
     );
+    this.userSvc.admin.subscribe(user => this.currentAdmin = user);
   }
 
   setMenuItems(): void {
@@ -64,5 +80,17 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/teachers', { teacherid: teacher.teacherId }]);
     this.filteredTeachers = [];
     this.searchText = '';
+  }
+
+  showLogin() {
+    this.showLoginDialog = true;
+  }
+
+  hideLogin() {
+    this.showLoginDialog = false;
+  }
+
+  logout() {
+    this.userSvc.logout();
   }
 }

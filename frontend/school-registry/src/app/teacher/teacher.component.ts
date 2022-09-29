@@ -11,6 +11,7 @@ import { Grade } from '../models/grade.model';
 import { Teacher } from '../models/teacher.model';
 import { GradesService } from '../services/grades.service';
 import { TeachersService } from '../services/teachers.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'sr-teacher',
@@ -39,7 +40,8 @@ export class TeacherComponent implements OnInit, OnDestroy {
     private gradesSvc: GradesService,
     private msgSvc: MessageService,
     private locSvc: Location,
-    private title: Title
+    private title: Title,
+    private userSvc: UserService
   ) {
     this.gradesSub = this.gradesSvc
       .getGrades<Grade[]>()
@@ -84,6 +86,8 @@ export class TeacherComponent implements OnInit, OnDestroy {
         }
       });
     }
+
+    this.userSvc.admin.subscribe(user => this.hidden = !user.username);
   }
 
   updateForm(teacher: Teacher) {
