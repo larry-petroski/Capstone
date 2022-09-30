@@ -63,9 +63,7 @@ export class HeaderComponent implements OnInit {
       this.items.push(item);
     });
 
-    this.teachersSvc
-      .getAllTeachers()
-      .subscribe((teachers) => (this.teachers = teachers));
+    this.teachersSvc.teachers().subscribe(teachers => this.teachers = teachers);
   }
 
   search(event: any) {
